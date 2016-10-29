@@ -16,6 +16,16 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $this->testDbScheme();
+
+        // replace this example code with whatever you need
+        return $this->render('default/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
+        ]);
+    }
+
+    private function testDbScheme()
+    {
         /* 5.6 -> 7
          *
          * 2 <=> 1; // 1
@@ -69,23 +79,18 @@ class DefaultController extends Controller
         foreach ($newArt->getAlbums() as $album) {
             /* @var Record $record */
             foreach ($album->getRecords() as $record) {
-                var_dump($record->getName());
+                $this->get('logger')->debug('Record from Album ' . $record->getName());
             }
         }
 
         /* @var Record $record */
         foreach ($newArt->getRecords() as $record) {
-            var_dump($record->getName());
+            $this->get('logger')->debug('Record from Artist ' . $record->getName());
         }
 
         /* @var ArtistGenre $genre */
         foreach ($newArt->getGenres() as $genre) {
-            var_dump($genre->getGenre());
+            $this->get('logger')->debug('Genre ' . $genre->getGenre());
         }
-
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
-        ]);
     }
 }

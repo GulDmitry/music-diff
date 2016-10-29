@@ -19,7 +19,7 @@ Music Difference Application
 * `docker exec md-web-php php vendor/bin/phpunit`
 
 #### TODO
-* Auth
+* Auth (FOSUser)
   * Local
   * Google
   * FB
