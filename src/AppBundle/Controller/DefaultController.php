@@ -2,9 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Album;
-use AppBundle\Entity\Artist;
-use AppBundle\Entity\Record;
+use AppBundle\Entity\{
+    Album, Artist, ArtistGenre, Record
+};
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +48,8 @@ class DefaultController extends Controller
         $record->setArtist($artist)->setAlbum($album);
         $record2->setArtist($artist);
 
+        $em->persist((new ArtistGenre())->setGenre('Metal')->setArtist($artist));
+        $em->persist((new ArtistGenre())->setGenre('Symphonic metal')->setArtist($artist));
         $em->persist($record);
         $em->persist($record2);
         $em->persist($album);
@@ -74,6 +76,11 @@ class DefaultController extends Controller
         /* @var Record $record */
         foreach ($newArt->getRecords() as $record) {
             var_dump($record->getName());
+        }
+
+        /* @var ArtistGenre $genre */
+        foreach ($newArt->getGenres() as $genre) {
+            var_dump($genre->getGenre());
         }
 
         // replace this example code with whatever you need

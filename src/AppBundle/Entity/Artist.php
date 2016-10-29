@@ -67,12 +67,18 @@ class Artist
     private $records;
 
     /**
+     * @ORM\OneToMany(targetEntity="ArtistGenre", mappedBy="artist")
+     */
+    private $genres;
+
+    /**
      * Artist constructor.
      */
     public function __construct()
     {
         $this->albums = new ArrayCollection();
         $this->records = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     /**
@@ -247,5 +253,39 @@ class Artist
     public function getRecords()
     {
         return $this->records;
+    }
+
+    /**
+     * Add genre
+     *
+     * @param ArtistGenre $genre
+     *
+     * @return Artist
+     */
+    public function addGenre(ArtistGenre $genre)
+    {
+        $this->genres[] = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Remove genre
+     *
+     * @param ArtistGenre $genre
+     */
+    public function removeGenre(ArtistGenre $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    /**
+     * Get genres
+     *
+     * @return ArrayCollection
+     */
+    public function getGenres()
+    {
+        return $this->genres;
     }
 }
