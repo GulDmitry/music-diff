@@ -30,3 +30,4 @@ Music Difference Application
 * React + Redux + ReactRouter
 * Admin Area
 * API for [http://musicbrainz.org](http://musicbrainz.org)
+* advanced search
