@@ -62,11 +62,17 @@ class Artist
     private $albums;
 
     /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="artist")
+     */
+    private $records;
+
+    /**
      * Artist constructor.
      */
     public function __construct()
     {
         $this->albums = new ArrayCollection();
+        $this->records = new ArrayCollection();
     }
 
     /**
@@ -207,5 +213,39 @@ class Artist
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    /**
+     * Add record
+     *
+     * @param Record $record
+     *
+     * @return Artist
+     */
+    public function addRecord(Record $record)
+    {
+        $this->records[] = $record;
+
+        return $this;
+    }
+
+    /**
+     * Remove record
+     *
+     * @param Record $record
+     */
+    public function removeRecord(Record $record)
+    {
+        $this->records->removeElement($record);
+    }
+
+    /**
+     * Get records
+     *
+     * @return ArrayCollection
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }

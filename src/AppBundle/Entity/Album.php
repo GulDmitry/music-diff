@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -56,6 +57,19 @@ class Album
      * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE)
      */
     private $artist;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="album")
+     */
+    private $records;
+
+    /**
+     * Album constructor.
+     */
+    public function __construct()
+    {
+        $this->records = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -185,10 +199,44 @@ class Album
     /**
      * Get artist
      *
-     * @return \AppBundle\Entity\Artist
+     * @return Artist
      */
     public function getArtist()
     {
         return $this->artist;
+    }
+
+    /**
+     * Add record
+     *
+     * @param Record $record
+     *
+     * @return Album
+     */
+    public function addRecord(Record $record)
+    {
+        $this->records[] = $record;
+
+        return $this;
+    }
+
+    /**
+     * Remove record
+     *
+     * @param Record $record
+     */
+    public function removeRecord(Record $record)
+    {
+        $this->records->removeElement($record);
+    }
+
+    /**
+     * Get records
+     *
+     * @return ArrayCollection
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }
