@@ -16,7 +16,7 @@ Music Difference Application
 * PhpMyAdmin [http://localhost:8090](http://localhost:8090)
 
 ### Tests
-* `docker exec md-web-php php vendor/bin/phpunit`
+* `docker exec md-php php vendor/bin/phpunit`
 
 #### TODO
 * Auth (FOSUser)
@@ -24,8 +24,7 @@ Music Difference Application
   * Google
   * FB
   * VK
-* REST
-* Move `JMS Serializer` to `symfony/serializer`
+* Move from `JMS Serializer` to `symfony/serializer`.
 * Webpack
 * Bootstrap 3
 * React + Redux + ReactRouter
