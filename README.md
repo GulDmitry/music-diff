@@ -25,6 +25,7 @@ Music Difference Application
   * FB
   * VK
 * REST
+* Move `JMS Serializer` to `symfony/serializer`
 * Webpack
 * Bootstrap 3
 * React + Redux + ReactRouter
