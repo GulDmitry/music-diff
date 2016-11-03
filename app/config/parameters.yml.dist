@@ -4,7 +4,7 @@
 parameters:
     database_host:     172.16.238.10
     database_port:     ~
-    database_name:     symfony
+    database_name:     music-diff
     database_user:     root
     database_password: root
     # You should uncomment this if you want use pdo_sqlite
