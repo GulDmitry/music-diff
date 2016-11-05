@@ -1,4 +1,4 @@
 backend_user_users:
   type: rest
   resource: "@BackendUserBundle/Controller/UsersController.php"
-  prefix: /v1
+#  prefix: /v1

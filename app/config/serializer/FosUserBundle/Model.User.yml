@@ -1,12 +1,18 @@
+# User AppBundle/Entity/User if not specified.
+# http://jmsyst.com/libs/serializer/master/reference/yml_reference
 FOS\UserBundle\Model\User:
     exclusion_policy: ALL
-    group: user
-    properties:
+    properties: # Uses properties from AppBundle/Entity.User.yml because of inheritance.
         id:
             expose: true
+            groups: ["user"]
         username:
             expose: true
+            groups: ["user"]
         email:
             expose: true
-        balance:
+            groups: ["user"]
+        usernameCanonical:
             expose: true
+            since_version: v1
+            until_version: v2.1

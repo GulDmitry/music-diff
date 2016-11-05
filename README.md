@@ -18,6 +18,9 @@ Music Difference Application
 ### Tests
 * `docker exec md-php php vendor/bin/phpunit`
 
+### REST
+* Versioning via `X-Accept-Version:v1`
+
 #### TODO
 * Auth (FOSUser)
   * Local
