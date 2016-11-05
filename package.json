@@ -1,0 +1,27 @@
+{
+  "name": "music-diff",
+  "version": "1.0.0",
+  "description": "Music Difference Application",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:GulDmitry/music-diff.git"
+  },
+  "author": "Dmitry Gulyakevich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GulDmitry/music-diff/issues"
+  },
+  "homepage": "https://github.com/GulDmitry/music-diff#readme",
+  "dependencies": {
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

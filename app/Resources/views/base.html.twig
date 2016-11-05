@@ -5,9 +5,14 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script type="text/javascript" src="{{ asset('assets/bundle.js') }}"></script>
+
+        {% if app.environment == "dev" %}
+            <script src="{{ asset('webpack-dev-server.js') }}"></script>
+        {% endif %}
     </head>
     <body>
+        <div id="content"></div>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>

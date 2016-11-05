@@ -16,4 +16,7 @@
 /web/bundles/
 
 composer.phar
+/node_modules/
+/web/assets/*
+!web/assets/.gitkeep
 /.idea/
