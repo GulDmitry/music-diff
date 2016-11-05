@@ -106,3 +106,12 @@ jms_serializer:
                 namespace_prefix: AppBundle
                 path: "%kernel.root_dir%/config/serializer/AppBundle"
         auto_detection: true
+
+doctrine_cache:
+    aliases:
+        doctrine_cache.default_query_cache: file_system_cache
+    providers:
+        file_system_cache:
+            type: file_system
+        array_cache:
+            type: array

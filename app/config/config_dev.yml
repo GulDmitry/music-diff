@@ -39,3 +39,7 @@ twig:
 jms_serializer:
     metadata:
         cache: false
+
+doctrine_cache:
+    aliases:
+        doctrine_cache.default_query_cache: array_cache

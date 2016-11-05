@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\{
     Album, Artist, ArtistGenre, Record
 };
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,30 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $this->testDbScheme();
+        $this->testRawQueryCache();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
         ]);
+    }
+
+    private function testRawQueryCache()
+    {
+        /* @var \Doctrine\DBAL\Connection $connection */
+        $connection = $this->getDoctrine()->getConnection();
+        $cacheProfile = new QueryCacheProfile(
+            5, // 0/null for infinite cache.
+            'query_cache_key',
+            $this->container->get('doctrine_cache.default_query_cache')
+        );
+
+        $sql = 'SELECT * FROM `artist`';
+        $stmt = $connection->executeCacheQuery($sql, [], [], $cacheProfile);
+        $result = $stmt->fetchAll();
+        $stmt->closeCursor(); // At this point the result is cached.
+
+        var_dump(count($result));
     }
 
     private function testDbScheme()
