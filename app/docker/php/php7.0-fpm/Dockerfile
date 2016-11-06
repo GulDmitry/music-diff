@@ -50,21 +50,23 @@ RUN pecl install -o -f xdebug \
 RUN docker-php-ext-enable xdebug
 
 RUN echo " \
-    ; For debug in CLI run before script {export XDEBUG_CONFIG='idekey=netbeans-xdebug'}.\n\
+    ; For debug in CLI run before script `export XDEBUG_CONFIG='idekey=PHPSTORM'`.\n\
     ; PHP Storm IDE key is PHPSTORM\n\
     ; To run CLI debug via PHPStorm IDE setup a server (where host is private IP), match routes\n\
     ; and run {export PHP_IDE_CONFIG='serverName=vagrant'}\n\
     ; For debug service (SOAP, REST) set cookie on client setCookie('XDEBUG_SESSION', 'netbeans-xdebug')\n\
     ; then debug progect. Some times need restart apache and Netbeans.\n\
     ; Remote settings\n\
+    ; xdebug.remote_host=172.17.0.1\n\
+    ; xdebug.remote_host=172.16.238.11\n\
     \n\
-    xdebug.remote_autostart=off\n\
+    xdebug.remote_autostart=on\n\
     xdebug.remote_enable=on\n\
     xdebug.remote_handler=dbgp\n\
     xdebug.remote_mode=req\n\
-    xdebug.remote_host=172.16.238.11\n\
     xdebug.remote_port=9000\n\
-    xdebug.remote_connect_back = on\n\
+    ; if set the remote_host is ignored\n\
+    xdebug.remote_connect_back=on\n\
     xdebug.idekey=PHPSTORM\n\
     \n\
     ; General\n\

@@ -18,8 +18,8 @@ services:
   php:
     build: ./app/docker/php/php7.0-fpm
     container_name: md-php
-    ports:
-      - "9000"
+#    ports:
+#      - "9000"
     volumes:
       - ./:/var/www/html
     depends_on:

@@ -2,9 +2,10 @@ Music Difference Application
 ============================
 
 ## Inside
-* Symfony Standard Application 3.1
+* [Symfony Standard Application](https://github.com/symfony/symfony-standard/) 3.1
 * [docker-compose](https://docs.docker.com/compose/) >= 1.6.1
 * [webpack](http://webpack.github.io/)
+* [bootstrap](http://getbootstrap.com/) 3
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
@@ -44,18 +45,18 @@ Music Difference Application
 `xdebug.remote_mode=req`
 `xdebug.remote_port=9000`
 `xdebug.remote_connect_back=on` if set the xdebug.remote_host is ignored.
-## Web
+#### Web
 * PHPStorm -> Settings -> Languages & Frameworks -> PHP -> Servers
   * Host: `localhost`
   * Port: `80`
   * Debugger: `Xdebug`
-  * [x] User path mappings
+  * [x] Use path mappings
 
 File/Directory | Absolute path on the server
 -------------- | ---------------------------
 /var/www/music-diff | /var/www/html
 
-## PHPUnit via PHPStorm
+#### PHPUnit via PHPStorm
 * PHPStorm -> Languages & Frameworks -> PHP 
   * Set PHP interpreter as `bin/php` file.
   

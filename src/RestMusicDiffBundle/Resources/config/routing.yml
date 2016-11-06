@@ -1,0 +1,3 @@
+rest_music_diff_artists:
+  type: rest
+  resource: "@RestMusicDiffBundle/Controller/ArtistController.php"

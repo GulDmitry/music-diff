@@ -16,12 +16,13 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
-            new BackendUserBundle\BackendUserBundle(),
-
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            // Application bundles.
+            new AppBundle\AppBundle(),
+            new BackendUserBundle\BackendUserBundle(),
+            new RestMusicDiffBundle\RestMusicDiffBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

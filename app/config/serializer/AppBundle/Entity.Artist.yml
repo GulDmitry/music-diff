@@ -1,0 +1,28 @@
+AppBundle\Entity\Artist:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: ["artist"]
+        name:
+            expose: true
+            groups: ["artist"]
+        country:
+            expose: true
+            groups: ["artist"]
+        beginDate:
+            expose: true
+            groups: ["artist"]
+        endDate:
+            expose: true
+            groups: ["artist"]
+        albums:
+            expose: true
+            groups: ["album"]
+        records:
+            expose: true
+            groups: ["records"]
+        genres:
+            expose: true
+            groups: ["genres"]
+

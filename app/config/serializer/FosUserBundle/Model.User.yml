@@ -14,5 +14,6 @@ FOS\UserBundle\Model\User:
             groups: ["user"]
         usernameCanonical:
             expose: true
+            groups: ["user"]
             since_version: v1
             until_version: v2.1

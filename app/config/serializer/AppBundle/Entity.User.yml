@@ -3,3 +3,4 @@ AppBundle\Entity\User:
     properties:
         balance: # exists only in the entity.
             expose: true
+            groups: ["user"]

@@ -8,3 +8,7 @@ fos_user:
 backend_user:
     resource: "@BackendUserBundle/Resources/config/routing.yml"
     prefix:   /api
+
+rest_music_diff:
+    resource: "@RestMusicDiffBundle/Resources/config/routing.yml"
+    prefix:   /api
