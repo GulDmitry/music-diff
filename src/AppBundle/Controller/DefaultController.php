@@ -13,16 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/", name="index")
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
     {
         $this->testDbScheme();
-        $this->testRawQueryCache();
+        $rawQueryResult = $this->testRawQueryCache();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
+            'query_result' => count($rawQueryResult),
         ]);
     }
 
@@ -41,7 +43,7 @@ class DefaultController extends Controller
         $result = $stmt->fetchAll();
         $stmt->closeCursor(); // At this point the result is cached.
 
-        var_dump(count($result));
+        return $result;
     }
 
     private function testDbScheme()

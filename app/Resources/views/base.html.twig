@@ -1,18 +1,108 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script type="text/javascript" src="{{ asset('assets/bundle.js') }}"></script>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Application for following bands.">
+    <meta name="author" content="Dmitry Gulyakevich">
 
-        {% if app.environment == "dev" %}
-            <script src="{{ asset('webpack-dev-server.js') }}"></script>
-        {% endif %}
-    </head>
-    <body>
-        <div id="content"></div>
-        {% block body %}{% endblock %}
-    </body>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+    <title>{% block title %}Music Diff{% endblock %}</title>
+
+    <link href="{{ asset('assets/bundle.css') }}" rel="stylesheet">
+
+    <script type="text/javascript" src="{{ asset('assets/bundle.js') }}"></script>
+    {% if app.environment == "dev" %}
+        <script src="{{ asset('webpack-dev-server.js') }}"></script>
+    {% endif %}
+</head>
+<body>
+{% block body %}
+    {% block header %}
+        <header>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="{{ path('index') }}">
+                            <i class="fa fa-music fa-1x" aria-hidden="true"></i>   Music Diff
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% block header_navigation_links %}
+                                <li>
+                                    {#sonata_admin_redirect#}
+                                    <a href="{{ path('index') }}">
+                                        <i class="fa fa-home" aria-hidden="true"></i> Admin
+                                    </a>
+                                </li>
+                                {% if app.user %}
+                                    <li>
+                                        <a href="{{ path('security_logout') }}">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endblock %}
+                        </ul>
+                    </div><!--/.navbar-collapse -->
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Hello, world!</h1>
+
+            <div id="content">Should be replaced by JQuery</div>
+            <div id="content-index">Query result is <mark>{{ query_result }}</mark></div>
+
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+                jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+                unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>&copy; 2016 Music Diff.</p>
+        </footer>
+    </div> <!-- /container -->
+{% endblock %}
+</body>
 </html>
