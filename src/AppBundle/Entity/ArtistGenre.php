@@ -28,7 +28,7 @@ class ArtistGenre
 
     /**
      * @ORM\ManyToOne(targetEntity="Artist", inversedBy="genres")
-     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE)
+     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE, onDelete="CASCADE")
      */
     private $artist;
 

@@ -28,7 +28,7 @@ class ArtistUpdate
 
     /**
      * @ORM\ManyToOne(targetEntity="Artist")
-     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE)
+     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE, onDelete="CASCADE")
      */
     private $artist;
 

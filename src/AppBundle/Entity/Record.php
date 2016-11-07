@@ -28,13 +28,13 @@ class Record
 
     /**
      * @ORM\ManyToOne(targetEntity="Artist", inversedBy="records")
-     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE)
+     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id", nullable=FALSE, onDelete="CASCADE")
      */
     private $artist;
 
     /**
      * @ORM\ManyToOne(targetEntity="Album", inversedBy="records")
-     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $album;
 
