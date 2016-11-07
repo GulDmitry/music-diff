@@ -2,8 +2,10 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    // entry: './web/js/app.jsx',
-    entry: ['babel-polyfill', './web/js/app.js'],
+    entry: [
+        'babel-polyfill',
+        './web/js/app.js'
+    ],
     output: {
         filename: 'bundle.js',
         path: 'web/assets/',
@@ -13,21 +15,14 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx$/,
-                loader: 'jsx-loader?insertPragma=React.DOM&harmony'
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },
-            // {
-            //     test: /.jsx?$/,
-            //     loader: 'babel-loader',
-            //     exclude: /node_modules/,
-            //     query: {
-            //         presets: ['es2015', 'react']
-            //     }
-            // },
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
@@ -70,7 +65,8 @@ module.exports = {
         })
     ],
     externals: {
-        'react': 'React'
+        // "react": "React" causes error "React is not defined".
+        "React": "React"
     },
     resolve: {extensions: ['', '.js', '.jsx']}
 };
