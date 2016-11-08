@@ -79,6 +79,8 @@ File/Directory | Absolute path on the server
 * React + Redux + ReactRouter
 * Admin Area.
 * API for [http://musicbrainz.org](http://musicbrainz.org).
-* advanced search (elastic).
+* Advanced search (elastic).
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
+* https
+* Auth as a microservice (GO time!).
