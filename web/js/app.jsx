@@ -4,30 +4,19 @@ import {EventEmitter} from "events"; // or Events, {EventEmitter}
 // Instead of node `events` API agnostic npm event-emmitter can be used. It has on, off events.
 
 var ee = new EventEmitter();
-var news = [
-    {
-        author: 'Author 1',
-        text: 'Text 1',
-        showMore: 'Show more text 1'
-    },
-    {
-        author: 'Author 2',
-        text: 'Text 2',
-        showMore: 'Show more text 2'
-    },
-    {
-        author: 'Author 3',
-        text: 'Text 3',
-        showMore: 'Show more text 3'
-    }
-];
 
 class App extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            news: news
+            news: props.news
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            news: nextProps.news
+        });
     }
 
     componentDidMount() {

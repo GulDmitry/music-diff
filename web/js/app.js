@@ -11,5 +11,23 @@ import App from "./app.jsx";
 $(document).ready(function() {
     $('#content').html('Webpack and JQuery work!');
 
-    ReactDOM.render(<App />, document.getElementById('react-content'));
+    var news = [
+        {
+            author: 'Author 1',
+            text: 'Text 1',
+            showMore: 'Show more text 1'
+        },
+        {
+            author: 'Author 2',
+            text: 'Text 2',
+            showMore: 'Show more text 2'
+        },
+        {
+            author: 'Author 3',
+            text: 'Text 3',
+            showMore: 'Show more text 3'
+        }
+    ];
+
+    ReactDOM.render(<App news={news}/>, document.getElementById('react-content'));
 });
