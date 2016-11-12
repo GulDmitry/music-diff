@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {EventEmitter} from "events"; // or Events, {EventEmitter}
+// Instead of node `events` API agnostic npm event-emmitter can be used. It has on, off events.
 
+var ee = new EventEmitter();
 var news = [
     {
         author: 'Author 1',
@@ -20,14 +23,32 @@ var news = [
 ];
 
 class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            news: news
+        };
+    }
+
+    componentDidMount() {
+        ee.on('News.add', function(item) {
+            var nextNews = item.concat(this.state.news);
+            this.setState({news: nextNews});
+        }.bind(this));
+    }
+
+    componentWillUnmount() {
+        ee.removeListener('News.add');
+    }
+
     render() {
         return (
             <div className="app text-primary">
                 <h3> App Component </h3>
                 App component, uses News and Comments inside.
-                <TestInput />
+                <AddForm />
                 <h3> News </h3>
-                <News data={news}/> {/* Comments in JSX are written this way */}
+                <News data={this.state.news}/> {/* Comments in JSX are written this way */}
             </div>
         );
     }
@@ -55,9 +76,7 @@ class Article extends React.Component {
 
         return (
             <div className="article">
-                <p className="news-author">{author}:</p>
-                <p className="news-text">{text}</p>
-
+                <p className="news-author">{author}: {text}</p>
                 <a href="#"
                    onClick={(e) => {
                        this.readMoreClick(e)
@@ -110,39 +129,142 @@ class News extends React.Component {
             newsTemplate = <p>No News.</p>
         }
 
-        return (
-            <div className="news">
-                <strong className={data.length ? '' : 'hidden'}>News: {data.length}</strong>
-                <p>
-                    <strong onClick={(e) => {
-                        this.increaseCounter()
-                    }}
-                    >
-                        Simple Clicker: {counter}
-                    </strong>
-                </p>
-                {newsTemplate}
-            </div>
-        );
+        return <div className="news">
+            <strong className={data.length ? '' : 'hidden'}>News: {data.length}</strong>
+            <p>
+                <strong onClick={(e) => {
+                    this.increaseCounter()
+                }}
+                >
+                    Simple Clicker: {counter}
+                </strong>
+            </p>
+            {newsTemplate}
+        </div>
+
     }
 }
 
-class TestInput extends React.Component {
-    onBtnClickHandler() {
-        alert(ReactDOM.findDOMNode(this.refs.myTestInput).value);
+class AddForm extends React.Component {
+    constructor() {
+        super();
+        // Instead of writing () => {this.onBtnClickHandler} in JSX.
+        this.onBtnClickHandler = this.onBtnClickHandler.bind(this);
+
+        this.state = {
+            agreeNotChecked: true,
+            authorIsEmpty: true,
+            textIsEmpty: true
+        }
+    }
+
+    // See https://facebook.github.io/react/docs/react-component.html#the-component-lifecycle
+    // System methods:
+    componentDidMount() {
+        // Without this.state.
+        // ReactDOM.findDOMNode(this.refs.author).focus();
+        // ReactDOM.findDOMNode(this.refs.alertButton).disabled = true;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // Here calling setState does not call render().
+        // this.setState({
+        //     likesIncreasing: nextProps.likeCount > this.props.likeCount
+        // });
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        // Directly before render. props and state are new.
+        // setState() is forbidden!
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        // After render, the first render is excluded.
+    }
+
+    componentWillUnmount() {
+        // Before remove from DOM.
+    }
+
+    onBtnClickHandler(e) {
+        e.preventDefault();
+        var textEl = ReactDOM.findDOMNode(this.refs.text);
+        var author = ReactDOM.findDOMNode(this.refs.author).value;
+        var text = textEl.value;
+        var item = [{
+            author: author,
+            text: text,
+            showMore: '...'
+        }];
+        ee.emit('News.add', item);
+        textEl.value = '';
+        this.setState({textIsEmpty: true});
+    }
+
+    onCheckRuleClick(e) {
+        // Without state
+        // ReactDOM.findDOMNode(this.refs.alertButton).disabled = !e.target.checked;
+        // With state
+        this.setState({agreeNotChecked: !this.state.agreeNotChecked});
+    }
+
+    onFieldChange(state, e) {
+        // this.refs[refName]
+        this.setState({[state]: e.target.value.trim().length === 0})
     }
 
     render() {
+        // Form components that do not provide a value prop are uncontrolled.
         // Uncontrolled Components. No state => no rerender.
-        return <div>
-            <input
-                className='test-input'
-                defaultValue=''
-                placeholder='Type value'
-                ref='myTestInput'
-            />
-            <button onClick={() => {this.onBtnClickHandler()}} ref='alert-button'>Show</button>
-        </div>
+        return (
+            <form>
+                <div className="form-group">
+                    <label htmlFor="authorInput">Author</label>
+                    <input
+                        type='text'
+                        id="authorInput"
+                        className='form-control add-form-author'
+                        defaultValue=''
+                        placeholder="Author's name"
+                        onChange={this.onFieldChange.bind(this, 'authorIsEmpty')}
+                        ref='author'
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="textInput">Text</label>
+                    <textarea
+                        id="textInput"
+                        className='form-control add-form-text'
+                        defaultValue=''
+                        placeholder='News'
+                        onChange={this.onFieldChange.bind(this, 'textIsEmpty')}
+                        ref='text'
+                    />
+                </div>
+                <div className="checkbox">
+                    <label className='add-form-checkrule'>
+                        <input
+                            type='checkbox'
+                            onChange={(e) => {
+                                this.onCheckRuleClick(e)
+                            }}
+                            defaultChecked={false}
+                            ref='checkrule'
+                        />I agree to show alert
+                    </label>
+                </div>
+
+                <button
+                    type="button"
+                    className='btn btn-default add-form-btn'
+                    onClick={this.onBtnClickHandler}
+                    ref='alertButton'
+                    disabled={this.state.agreeNotChecked || this.state.authorIsEmpty || this.state.textIsEmpty}
+                > {/* disabled={true} сannot be changed by ReactDOM later */}
+                    Add news
+                </button>
+            </form>
+        );
     }
 }
 

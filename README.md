@@ -84,3 +84,5 @@ File/Directory | Absolute path on the server
 * Search music in file system (only Chrome?).
 * https
 * Auth as a microservice (GO time!).
+* Docker prod config.
+* DB indexes.

@@ -793,6 +793,11 @@
       "from": "csso@>=2.2.1 <2.3.0",
       "resolved": "https://registry.npmjs.org/csso/-/csso-2.2.1.tgz"
     },
+    "d": {
+      "version": "0.1.1",
+      "from": "d@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/d/-/d-0.1.1.tgz"
+    },
     "date-now": {
       "version": "0.1.4",
       "from": "date-now@>=0.1.4 <0.2.0",
@@ -874,6 +879,21 @@
       "version": "0.1.4",
       "from": "errno@>=0.1.3 <0.2.0",
       "resolved": "https://registry.npmjs.org/errno/-/errno-0.1.4.tgz"
+    },
+    "es5-ext": {
+      "version": "0.10.12",
+      "from": "es5-ext@>=0.10.7 <0.11.0",
+      "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.12.tgz"
+    },
+    "es6-iterator": {
+      "version": "2.0.0",
+      "from": "es6-iterator@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/es6-iterator/-/es6-iterator-2.0.0.tgz"
+    },
+    "es6-symbol": {
+      "version": "3.1.0",
+      "from": "es6-symbol@>=3.1.0 <3.2.0",
+      "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-3.1.0.tgz"
     },
     "escape-html": {
       "version": "1.0.3",

@@ -21,6 +21,7 @@
   "homepage": "https://github.com/GulDmitry/music-diff#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "events": "^1.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "3.1.1",
     "jsx-loader": "^0.13.2",
