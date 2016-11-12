@@ -72,6 +72,7 @@ File/Directory | Absolute path on the server
   * Google
   * FB
   * VK
+* Symfony forms.
 * Subscriptions for users.
 * Schedule band request, sent result back via websocket.
 * Show band and albums.
