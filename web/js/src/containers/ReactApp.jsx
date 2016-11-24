@@ -98,7 +98,7 @@ class News extends React.Component {
             text: React.PropTypes.string.isRequired,
             showMore: React.PropTypes.string
         })).isRequired,
-    }
+    };
 
     render() {
         var data = this.props.data; // <News data={[...]}
@@ -118,7 +118,7 @@ class News extends React.Component {
             newsTemplate = <p>No News.</p>
         }
 
-        return <div className="news">
+        return <div className='news'>
             <strong className={data.length ? '' : 'hidden'}>News: {data.length}</strong>
             <p>
                 <strong onClick={(e) => {
@@ -222,7 +222,7 @@ class AddForm extends React.Component {
                 <div className="form-group">
                     <label htmlFor="textInput">Text</label>
                     <textarea
-                        id="textInput"
+                        id='textInput'
                         className='form-control add-form-text'
                         defaultValue=''
                         placeholder='News'
@@ -230,7 +230,7 @@ class AddForm extends React.Component {
                         ref='text'
                     />
                 </div>
-                <div className="checkbox">
+                <div className='checkbox'>
                     <label className='add-form-checkrule'>
                         <input
                             type='checkbox'
@@ -244,7 +244,7 @@ class AddForm extends React.Component {
                 </div>
 
                 <button
-                    type="button"
+                    type='button'
                     className='btn btn-default add-form-btn'
                     onClick={this.onBtnClickHandler}
                     ref='alertButton'

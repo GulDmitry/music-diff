@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+var config = {
     entry: [
         'babel-polyfill',
         './web/js/app.js'
@@ -12,6 +12,13 @@ module.exports = {
         publicPath: '/assets/'
     },
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loaders: ['eslint'],
+                exclude: /node_modules/,
+            }
+        ],
         loaders: [
             {
                 test: /\.jsx$/,
@@ -33,11 +40,11 @@ module.exports = {
             },
             {
                 test: /\.png$/,
-                loader: "url-loader?limit=100000"
+                loader: 'url-loader?limit=100000'
             },
             {
                 test: /\.jpg$/,
-                loader: "file-loader"
+                loader: 'file-loader'
             },
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -62,11 +69,38 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
-        })
+        }),
+        new webpack.NoErrorsPlugin()
     ],
     externals: {
         // "react": "React" causes error "React is not defined".
-        "React": "React"
+        'React': 'React'
     },
     resolve: {extensions: ['', '.js', '.jsx']}
 };
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            comments: false,
+            compress: {
+                sequences: true,
+                booleans: true,
+                loops: true,
+                unused: true,
+                warnings: false,
+                drop_console: true,
+                unsafe: true
+            }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin()
+    );
+
+} else {
+    // config.plugins.push(
+    //     new webpack.HotModuleReplacementPlugin()
+    // );
+}
+
+module.exports = config;
