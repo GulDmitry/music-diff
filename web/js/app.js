@@ -16,12 +16,17 @@ import {Provider} from 'react-redux'
 import ReduxApp from './src/containers/ReduxApp'
 import configureStore from './src/store/configureStore'
 
+// ReactRouterApp.jsx
+import {Router} from 'react-router'
+import {routes} from './src/router'
+import {history} from './src/router/history'
+
 const store = configureStore();
 
 $(document).ready(function() {
     $('#content').html('Webpack and JQuery work!');
 
-    var news = [
+    let news = [
         {
             author: 'Author 1',
             text: 'Text 1',
@@ -38,6 +43,13 @@ $(document).ready(function() {
             showMore: 'Show more text 3'
         }
     ];
+
+    render(
+        <Provider store={store}>
+            <Router history={history} routes={routes}/>
+        </Provider>,
+        document.getElementById('react-router-content')
+    );
 
     render(
         <Provider store={store}>

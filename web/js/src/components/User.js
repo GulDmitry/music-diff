@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 
 export default class User extends Component {
     static propTypes = {
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string,
         handleLogin: PropTypes.func.isRequired,
         error: PropTypes.string
     };

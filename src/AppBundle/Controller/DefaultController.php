@@ -15,6 +15,13 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="index")
      * @Route("/", name="homepage")
+     *
+     * // TODO: test react router, remove in future.
+     * @Route("/admin", name="admin")
+     * @Route("/genre/{genre}", name="genre")
+     * @Route("/genre/{genre}/{release}", name="genre_release")
+     * @Route("/list", name="list")
+     * @Route("/login-temp", name="temp_login")
      */
     public function indexAction(Request $request)
     {

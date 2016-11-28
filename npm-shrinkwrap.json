@@ -1137,9 +1137,9 @@
       "resolved": "https://registry.npmjs.org/faye-websocket/-/faye-websocket-0.10.0.tgz"
     },
     "fbjs": {
-      "version": "0.8.5",
+      "version": "0.8.6",
       "from": "fbjs@>=0.8.4 <0.9.0",
-      "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.5.tgz",
+      "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.6.tgz",
       "dependencies": {
         "core-js": {
           "version": "1.2.7",
@@ -1372,11 +1372,6 @@
       "version": "3.2.0",
       "from": "ignore@>=3.2.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/ignore/-/ignore-3.2.0.tgz"
-    },
-    "immutable": {
-      "version": "3.8.1",
-      "from": "immutable@>=3.7.6 <4.0.0",
-      "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.8.1.tgz"
     },
     "imurmurhash": {
       "version": "0.1.4",
@@ -2254,23 +2249,23 @@
       "resolved": "https://registry.npmjs.org/range-parser/-/range-parser-1.2.0.tgz"
     },
     "react": {
-      "version": "15.3.2",
-      "from": "react@latest",
-      "resolved": "https://registry.npmjs.org/react/-/react-15.3.2.tgz"
+      "version": "15.4.1",
+      "from": "react@15.4.1",
+      "resolved": "https://registry.npmjs.org/react/-/react-15.4.1.tgz"
     },
     "react-dom": {
-      "version": "15.3.2",
-      "from": "react-dom@latest",
-      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.3.2.tgz"
+      "version": "15.4.1",
+      "from": "react-dom@15.4.1",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.4.1.tgz"
     },
     "react-redux": {
-      "version": "4.4.5",
-      "from": "react-redux@latest",
-      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.5.tgz"
+      "version": "4.4.6",
+      "from": "react-redux@4.4.6",
+      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz"
     },
     "react-router": {
       "version": "3.0.0",
-      "from": "react-router@latest",
+      "from": "react-router@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/react-router/-/react-router-3.0.0.tgz"
     },
     "react-router-redux": {
@@ -2693,9 +2688,9 @@
       "resolved": "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
     },
     "ua-parser-js": {
-      "version": "0.7.11",
+      "version": "0.7.12",
       "from": "ua-parser-js@>=0.7.9 <0.8.0",
-      "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.11.tgz"
+      "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.12.tgz"
     },
     "uglify-js": {
       "version": "2.7.4",
@@ -2858,9 +2853,9 @@
       "resolved": "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.1.tgz"
     },
     "whatwg-fetch": {
-      "version": "1.0.0",
+      "version": "2.0.1",
       "from": "whatwg-fetch@>=0.10.0",
-      "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-1.0.0.tgz"
+      "resolved": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.1.tgz"
     },
     "whet.extend": {
       "version": "0.9.9",

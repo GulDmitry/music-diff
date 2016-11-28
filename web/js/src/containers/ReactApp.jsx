@@ -249,7 +249,7 @@ class AddForm extends React.Component {
                     onClick={this.onBtnClickHandler}
                     ref='alertButton'
                     disabled={this.state.agreeNotChecked || this.state.authorIsEmpty || this.state.textIsEmpty}
-                > {/* disabled={true} сannot be changed by ReactDOM later */}
+                > {/* disabled={true} сan not be changed by ReactDOM later */}
                     Add news
                 </button>
             </form>
@@ -257,4 +257,5 @@ class AddForm extends React.Component {
     }
 }
 
+// `default` one for script.
 export default App;

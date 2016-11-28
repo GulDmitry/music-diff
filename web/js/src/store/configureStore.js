@@ -1,6 +1,7 @@
 import {createStore, applyMiddleware} from 'redux'
 import rootReducer from '../reducers'
 // import {ping} from '../enhancers/ping'
+import redirect from '../enhancers/redirect'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
@@ -11,7 +12,8 @@ export default function configureStore(initialState) {
         initialState,
         applyMiddleware(
             logger,
-            thunk
+            thunk,
+            redirect
         )
     );
 

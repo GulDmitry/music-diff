@@ -1,7 +1,10 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+process.env.ENV = process.env.ENV || 'dev';
+
 var config = {
+    devtool: 'eval-cheap-module-source-map',
     entry: [
         'babel-polyfill',
         './web/js/app.js'
@@ -66,6 +69,10 @@ var config = {
     },
     plugins: [
         new ExtractTextPlugin('bundle.css'),
+        new webpack.DefinePlugin({
+            // 'true' for boolean, '"string"' for string.
+            'ENV': `"${process.env.ENV}"`
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
@@ -79,7 +86,8 @@ var config = {
     resolve: {extensions: ['', '.js', '.jsx']}
 };
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.ENV === 'prod') {
+    config.devtool = 'source-map';
     config.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,

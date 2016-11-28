@@ -20,9 +20,9 @@ Music Difference Application
 
 ### Webpack
 * `./node_modules/.bin/webpack ` for building once for development.
-* `NODE_ENV='production' ./node_modules/.bin/webpack -p` for building once for production (minification).
+* `ENV='prod' ./node_modules/.bin/webpack -p` for building once for production (minification).
 * `./node_modules/.bin/webpack --watch` for continuous incremental build in development (fast!).
-* `NODE_ENV='production' ./node_modules/.bin/webpack -d` to include source maps.
+* `ENV='prod' ./node_modules/.bin/webpack -d` to include source maps.
 * `./node_modules/.bin/webpack-dev-server --progress --colors --port 8081 --content-base=web/` for dev environment.
 
 ### Tests
@@ -77,7 +77,6 @@ File/Directory | Absolute path on the server
 * Schedule band request, sent result back via websocket.
 * Show band and albums.
 * Tutorial in the 'Main jumbotron' container, can be disabled.
-* React + Redux + ReactRouter
 * Admin Area.
 * API for [http://musicbrainz.org](http://musicbrainz.org).
 * Advanced search (elastic).
