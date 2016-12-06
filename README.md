@@ -73,6 +73,7 @@ File/Directory | Absolute path on the server
   * FB
   * VK
 * Symfony forms.
+* AOP for logs, cache, websocker, etc.
 * Subscriptions for users.
 * Schedule band request, sent result back via websocket.
 * Show band and albums.
@@ -87,3 +88,4 @@ File/Directory | Absolute path on the server
 * Docker prod config.
 * DB indexes.
 * Hot reload? HMR (hot module replacement) react-hot-loader --save-dev
+* [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)

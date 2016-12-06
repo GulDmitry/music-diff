@@ -2,10 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\{
-    Album, Artist, ArtistGenre, Record
-};
+use AppBundle\Entity\Album;
+use AppBundle\Entity\Artist;
+use AppBundle\Entity\ArtistGenre;
+use AppBundle\Entity\Record;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
+use MusicDiff\Collection\Collection;
+use MusicDiff\Collection\Converter\ArrayConverter;
+use MusicDiff\Entity\Artist as MusicDiffArtist;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +31,7 @@ class DefaultController extends Controller
     {
         $this->testDbScheme();
         $rawQueryResult = $this->testRawQueryCache();
+        $this->musicBrainz();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -73,22 +78,18 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $record = (new Record())->setName('Martyr');
-        $record2 = (new Record())->setName('Prophecy');
-
-        $album = (new Album())->setName('Mirror Mirror');
-        $album2 = (new Album())->setName('Imagination');
-
         $artist = (new Artist())->setName('Blind Guardian');
 
-        $album->setArtist($artist);
-        $album2->setArtist($artist);
+        $record = (new Record($artist))->setName('Martyr');
+        $record2 = (new Record($artist))->setName('Prophecy');
 
-        $record->setArtist($artist)->setAlbum($album);
-        $record2->setArtist($artist);
+        $album = (new Album($artist))->setName('Mirror Mirror');
+        $album2 = (new Album($artist))->setName('Imagination');
 
-        $em->persist((new ArtistGenre())->setGenre('Metal')->setArtist($artist));
-        $em->persist((new ArtistGenre())->setGenre('Symphonic metal')->setArtist($artist));
+        $record->setAlbum($album);
+
+        $em->persist((new ArtistGenre($artist))->setGenre('Metal'));
+        $em->persist((new ArtistGenre($artist))->setGenre('Symphonic metal'));
         $em->persist($record);
         $em->persist($record2);
         $em->persist($album);
@@ -121,5 +122,18 @@ class DefaultController extends Controller
         foreach ($newArt->getGenres() as $genre) {
             $this->get('logger')->debug('Genre ' . $genre->getGenre());
         }
+    }
+
+    private function musicBrainz()
+    {
+        $initCollection = new Collection();
+        $initCollection->addArtist(new MusicDiffArtist('blind guardian'));
+
+        $musicDiff = $this->get('music_diff');
+        $musicDiff->setInitCollection($initCollection);
+
+        $restoredCollection = $musicDiff->restoreCollection();
+
+        $array = (new ArrayConverter())->fromCollection($restoredCollection);
     }
 }

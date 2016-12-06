@@ -29,11 +29,8 @@ class ArtistControllerTest extends WebTestCase
 
         $this->artist = (new Artist())->setName('Artist');
 
-        $this->albums[] = $album1 = (new Album())->setName('Album1');
-        $this->albums[] = $album2 = (new Album())->setName('Album2');
-
-        $album1->setArtist($this->artist);
-        $album2->setArtist($this->artist);
+        $this->albums[] = $album1 = (new Album($this->artist))->setName('Album1');
+        $this->albums[] = $album2 = (new Album($this->artist))->setName('Album2');
 
         $em->persist($this->artist);
         $em->persist($album1);

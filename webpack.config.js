@@ -1,9 +1,9 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 process.env.ENV = process.env.ENV || 'dev';
 
-var config = {
+const config = {
     devtool: 'eval-cheap-module-source-map',
     entry: [
         'babel-polyfill',

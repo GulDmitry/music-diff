@@ -5,12 +5,10 @@ namespace AppBundle\Entity;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use FOS\UserBundle\Model\Group;
 
 /**
  * User
@@ -22,9 +20,9 @@ use FOS\UserBundle\Model\Group;
 class User extends BaseUser
 {
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      * @Exclude
      */
     protected $id;
@@ -37,10 +35,8 @@ class User extends BaseUser
     private $balance = 0;
 
     /**
-     * Set balance
-     *
+     * Set balance.
      * @param integer $balance
-     *
      * @return User
      */
     public function setBalance($balance)
@@ -51,8 +47,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get balance
-     *
+     * Get balance.
      * @return integer
      */
     public function getBalance()

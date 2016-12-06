@@ -18,15 +18,25 @@ class Album
      * Possible album types.
      */
     const TYPES = [
+        'nat',
         'album',
+        'single',
         'ep',
+        'compilation',
+        'soundtrack',
+        'spokenword',
+        'interview',
+        'audiobook',
+        'live',
+        'remix',
         'demo',
+        'other',
     ];
 
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -37,9 +47,9 @@ class Album
     private $name;
 
     /**
-     * @ORM\Column(type="string", nullable=TRUE)
+     * @ORM\Column(type="simple_array", nullable=TRUE)
      */
-    private $type;
+    private $types = [];
 
     /**
      * @ORM\Column(type="smallint", nullable=TRUE)
@@ -65,15 +75,16 @@ class Album
 
     /**
      * Album constructor.
+     * @param Artist $artist
      */
-    public function __construct()
+    public function __construct(Artist $artist)
     {
+        $this->artist = $artist;
         $this->records = new ArrayCollection();
     }
 
     /**
-     * Get id
-     *
+     * Get id.
      * @return integer
      */
     public function getId()
@@ -82,16 +93,13 @@ class Album
     }
 
     /**
-     * Set name
-     *
+     * Set name.
      * @param string $name
-     *
      * @return Album
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -106,51 +114,46 @@ class Album
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     *
+     * Set album types.
+     * @param array $types
      * @return Album
      */
-    public function setType($type)
+    public function setTypes(array $types)
     {
-        $type = strtolower($type);
-        if (!in_array($type, self::TYPES)) {
+        array_walk($types, function (&$val) {
+            $val = strtolower($val);
+        });
+        if (count(array_diff($types, self::TYPES))) {
             throw new \InvalidArgumentException('Invalid type. Possible values ' . var_export(self::TYPES, true));
         }
 
-        $this->type = $type;
+        $this->types = $types;
 
         return $this;
     }
 
     /**
-     * Get type
-     *
-     * @return string
+     * Get type.
+     * @return array
      */
-    public function getType()
+    public function getTypes()
     {
-        return $this->type;
+        return $this->types;
     }
 
     /**
-     * Set length
-     *
+     * Set length.
      * @param integer $length
-     *
      * @return Album
      */
     public function setLength($length)
     {
         $this->length = $length;
-
         return $this;
     }
 
     /**
-     * Get length
-     *
+     * Get length.
      * @return integer
      */
     public function getLength()
@@ -159,10 +162,8 @@ class Album
     }
 
     /**
-     * Set date
-     *
+     * Set release date.
      * @param \DateTime $date
-     *
      * @return Album
      */
     public function setDate(\DateTime $date)
@@ -173,8 +174,7 @@ class Album
     }
 
     /**
-     * Get date
-     *
+     * Get release date.
      * @return \DateTime
      */
     public function getDate()
@@ -183,22 +183,7 @@ class Album
     }
 
     /**
-     * Set artist
-     *
-     * @param Artist $artist
-     *
-     * @return Album
-     */
-    public function setArtist(Artist $artist = null)
-    {
-        $this->artist = $artist;
-
-        return $this;
-    }
-
-    /**
-     * Get artist
-     *
+     * Get artist.
      * @return Artist
      */
     public function getArtist()
@@ -207,22 +192,18 @@ class Album
     }
 
     /**
-     * Add record
-     *
+     * Add record.
      * @param Record $record
-     *
      * @return Album
      */
     public function addRecord(Record $record)
     {
         $this->records[] = $record;
-
         return $this;
     }
 
     /**
-     * Remove record
-     *
+     * Remove record.
      * @param Record $record
      */
     public function removeRecord(Record $record)
@@ -231,8 +212,7 @@ class Album
     }
 
     /**
-     * Get records
-     *
+     * Get records.
      * @return ArrayCollection
      */
     public function getRecords()

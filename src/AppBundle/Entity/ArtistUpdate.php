@@ -14,9 +14,9 @@ class ArtistUpdate
     const NUM_ITEMS = 10;
 
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -33,8 +33,15 @@ class ArtistUpdate
     private $artist;
 
     /**
-     * Get id
-     *
+     * @param Artist $artist
+     */
+    public function __construct(Artist $artist)
+    {
+        $this->artist = $artist;
+    }
+
+    /**
+     * Get id.
      * @return integer
      */
     public function getId()
@@ -43,22 +50,18 @@ class ArtistUpdate
     }
 
     /**
-     * Set lastUpdate
-     *
+     * Set lastUpdate.
      * @param \DateTime $lastUpdate
-     *
      * @return ArtistUpdate
      */
     public function setLastUpdate($lastUpdate)
     {
         $this->lastUpdate = $lastUpdate;
-
         return $this;
     }
 
     /**
-     * Get lastUpdate
-     *
+     * Get lastUpdate.
      * @return \DateTime
      */
     public function getLastUpdate()
@@ -67,22 +70,7 @@ class ArtistUpdate
     }
 
     /**
-     * Set artist
-     *
-     * @param \AppBundle\Entity\Artist $artist
-     *
-     * @return ArtistUpdate
-     */
-    public function setArtist(\AppBundle\Entity\Artist $artist)
-    {
-        $this->artist = $artist;
-
-        return $this;
-    }
-
-    /**
-     * Get artist
-     *
+     * Get artist.
      * @return \AppBundle\Entity\Artist
      */
     public function getArtist()

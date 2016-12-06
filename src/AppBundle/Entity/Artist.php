@@ -26,9 +26,9 @@ class Artist
     const NUM_ITEMS = 10;
 
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -82,8 +82,7 @@ class Artist
     }
 
     /**
-     * Get id
-     *
+     * Get id.
      * @return integer
      */
     public function getId()
@@ -92,22 +91,18 @@ class Artist
     }
 
     /**
-     * Set name
-     *
+     * Set name.
      * @param string $name
-     *
      * @return Artist
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
-     * Get name
-     *
+     * Get name.
      * @return string
      */
     public function getName()
@@ -116,22 +111,18 @@ class Artist
     }
 
     /**
-     * Set country
-     *
+     * Set country.
      * @param string $country
-     *
      * @return Artist
      */
     public function setCountry($country)
     {
         $this->country = $country;
-
         return $this;
     }
 
     /**
-     * Get country
-     *
+     * Get country.
      * @return string
      */
     public function getCountry()
@@ -140,22 +131,18 @@ class Artist
     }
 
     /**
-     * Set beginDate
-     *
+     * Set beginDate.
      * @param \DateTime $beginDate
-     *
      * @return Artist
      */
     public function setBeginDate(\DateTime $beginDate)
     {
         $this->beginDate = $beginDate;
-
         return $this;
     }
 
     /**
-     * Get beginDate
-     *
+     * Get beginDate.
      * @return \DateTime
      */
     public function getBeginDate()
@@ -164,22 +151,18 @@ class Artist
     }
 
     /**
-     * Set endDate
-     *
+     * Set endDate.
      * @param \DateTime $endDate
-     *
      * @return Artist
      */
     public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
-
         return $this;
     }
 
     /**
-     * Get endDate
-     *
+     * Get endDate.
      * @return \DateTime
      */
     public function getEndDate()
@@ -188,22 +171,18 @@ class Artist
     }
 
     /**
-     * Add album
-     *
+     * Add album.
      * @param Album $album
-     *
      * @return Artist
      */
     public function addAlbum(Album $album)
     {
         $this->albums[] = $album;
-
         return $this;
     }
 
     /**
-     * Remove album
-     *
+     * Remove album.
      * @param Album $album
      */
     public function removeAlbum(Album $album)
@@ -212,8 +191,7 @@ class Artist
     }
 
     /**
-     * Get albums
-     *
+     * Get albums.
      * @return ArrayCollection
      */
     public function getAlbums()
@@ -222,10 +200,8 @@ class Artist
     }
 
     /**
-     * Add record
-     *
+     * Add record.
      * @param Record $record
-     *
      * @return Artist
      */
     public function addRecord(Record $record)
@@ -236,8 +212,7 @@ class Artist
     }
 
     /**
-     * Remove record
-     *
+     * Remove record.
      * @param Record $record
      */
     public function removeRecord(Record $record)
@@ -246,8 +221,7 @@ class Artist
     }
 
     /**
-     * Get records
-     *
+     * Get records.
      * @return ArrayCollection
      */
     public function getRecords()
@@ -256,22 +230,18 @@ class Artist
     }
 
     /**
-     * Add genre
-     *
+     * Add genre.
      * @param ArtistGenre $genre
-     *
      * @return Artist
      */
     public function addGenre(ArtistGenre $genre)
     {
         $this->genres[] = $genre;
-
         return $this;
     }
 
     /**
-     * Remove genre
-     *
+     * Remove genre.
      * @param ArtistGenre $genre
      */
     public function removeGenre(ArtistGenre $genre)
@@ -280,8 +250,7 @@ class Artist
     }
 
     /**
-     * Get genres
-     *
+     * Get genres.
      * @return ArrayCollection
      */
     public function getGenres()

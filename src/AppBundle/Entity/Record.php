@@ -14,9 +14,9 @@ class Record
     const NUM_ITEMS = 10;
 
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -34,13 +34,20 @@ class Record
 
     /**
      * @ORM\ManyToOne(targetEntity="Album", inversedBy="records")
-     * @ORM\JoinColumn(name="album_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id", nullable=TRUE, onDelete="CASCADE")
      */
     private $album;
 
     /**
-     * Get id
-     *
+     * @param Artist $artist
+     */
+    public function __construct(Artist $artist)
+    {
+        $this->artist = $artist;
+    }
+
+    /**
+     * Get id.
      * @return integer
      */
     public function getId()
@@ -49,22 +56,18 @@ class Record
     }
 
     /**
-     * Set name
-     *
+     * Set name.
      * @param string $name
-     *
      * @return Record
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
-     * Get name
-     *
+     * Get name.
      * @return string
      */
     public function getName()
@@ -73,23 +76,8 @@ class Record
     }
 
     /**
-     * Set artist
-     *
-     * @param Artist $artist
-     *
-     * @return Record
-     */
-    public function setArtist(Artist $artist)
-    {
-        $this->artist = $artist;
-
-        return $this;
-    }
-
-    /**
-     * Get artist
-     *
-     * @return \AppBundle\Entity\Artist
+     * Get artist.
+     * @return Artist
      */
     public function getArtist()
     {
@@ -97,22 +85,18 @@ class Record
     }
 
     /**
-     * Set album
-     *
+     * Set album.
      * @param Album $album
-     *
      * @return Record
      */
     public function setAlbum(Album $album = null)
     {
         $this->album = $album;
-
         return $this;
     }
 
     /**
-     * Get album
-     *
+     * Get album.
      * @return Album
      */
     public function getAlbum()

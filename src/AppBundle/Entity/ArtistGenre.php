@@ -14,9 +14,9 @@ class ArtistGenre
     const NUM_ITEMS = 10;
 
     /**
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -33,8 +33,15 @@ class ArtistGenre
     private $artist;
 
     /**
-     * Get id
-     *
+     * @param Artist $artist
+     */
+    public function __construct(Artist $artist)
+    {
+        $this->artist = $artist;
+    }
+
+    /**
+     * Get id.
      * @return integer
      */
     public function getId()
@@ -43,10 +50,8 @@ class ArtistGenre
     }
 
     /**
-     * Set genre
-     *
+     * Set genre.
      * @param string $genre
-     *
      * @return ArtistGenre
      */
     public function setGenre($genre)
@@ -57,8 +62,7 @@ class ArtistGenre
     }
 
     /**
-     * Get genre
-     *
+     * Get genre.
      * @return string
      */
     public function getGenre()
@@ -67,22 +71,7 @@ class ArtistGenre
     }
 
     /**
-     * Set artist
-     *
-     * @param Artist $artist
-     *
-     * @return ArtistGenre
-     */
-    public function setArtist(Artist $artist)
-    {
-        $this->artist = $artist;
-
-        return $this;
-    }
-
-    /**
-     * Get artist
-     *
+     * Get artist.
      * @return Artist
      */
     public function getArtist()
