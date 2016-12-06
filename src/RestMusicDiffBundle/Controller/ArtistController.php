@@ -2,10 +2,13 @@
 
 namespace RestMusicDiffBundle\Controller;
 
-use AppBundle\Entity\Artist;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use MusicDiff\Collection\Collection;
+use MusicDiff\Collection\Converter\ArrayConverter;
+use MusicDiff\DataProvider\Doctrine;
+use MusicDiff\Entity\Artist;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Rest\Version("v1")
@@ -14,20 +17,25 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ArtistController extends FOSRestController
 {
     /**
-     * Find Artist and its albums by name.
-     * @param $name
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Find Artist and its data by name.
+     * @param string $name
+     * @return Response
      */
-    public function getArtistAlbumsAction($name)
+    public function getArtistAction(string $name)
     {
-        $artist = $this->getDoctrine()->getRepository('AppBundle:Artist')->findOneBy(['name' => $name]);
-        if (!$artist instanceof Artist) {
-            throw new NotFoundHttpException('Artist not found');
-        }
+        $initCollection = new Collection();
+        $initCollection->addArtist(new Artist($name));
 
-        $view = $this->view($artist, 200);
-        $view->setContext($view->getContext()->setGroups(['artist', 'album']));
+        $musicDiff = $this->get('music_diff');
+        $musicDiff->setInitCollection($initCollection);
+
+        $restoredCollection = $musicDiff->restoreCollection();
+
+        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
+
+        $arrayCollection = (new ArrayConverter())->fromCollection($restoredCollection);
+
+        $view = $this->view($arrayCollection, 200);
         return $this->handleView($view);
     }
-
 }

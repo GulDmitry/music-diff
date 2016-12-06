@@ -7,10 +7,6 @@ use AppBundle\Entity\Artist;
 use AppBundle\Entity\ArtistGenre;
 use AppBundle\Entity\Record;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-use MusicDiff\Collection\Collection;
-use MusicDiff\Collection\Converter\ArrayConverter;
-use MusicDiff\DataProvider\Doctrine;
-use MusicDiff\Entity\Artist as MusicDiffArtist;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +28,6 @@ class DefaultController extends Controller
     {
         $this->testDbScheme();
         $rawQueryResult = $this->testRawQueryCache();
-        $this->musicBrainz();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -120,20 +115,5 @@ class DefaultController extends Controller
         foreach ($newArt->getGenres() as $genre) {
             $this->get('logger')->debug('Genre ' . $genre->getGenre());
         }
-    }
-
-    private function musicBrainz()
-    {
-        $initCollection = new Collection();
-        $initCollection->addArtist(new MusicDiffArtist('in flames'));
-
-        $musicDiff = $this->get('music_diff');
-        $musicDiff->setInitCollection($initCollection);
-
-        $restoredCollection = $musicDiff->restoreCollection();
-
-        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
-
-        $array = (new ArrayConverter())->fromCollection($restoredCollection);
     }
 }

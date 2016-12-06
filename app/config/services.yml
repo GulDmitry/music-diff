@@ -34,6 +34,7 @@ services:
 
     music_diff.data_provider.composite:
         class: MusicDiff\DataProvider\DataProviderComposite
+        # First try to find records in doctrine.
         arguments: [false, '@music_diff.data_provider.doctrine', '@music_diff.data_provider.muzic_brainz']
 
     music_diff:

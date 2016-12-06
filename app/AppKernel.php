@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             // Application bundles.
             new AppBundle\AppBundle(),
-            new BackendUserBundle\BackendUserBundle(),
+            // TODO: remove in future.
+//            new BackendUserBundle\BackendUserBundle(),
             new RestMusicDiffBundle\RestMusicDiffBundle(),
         ];
 
