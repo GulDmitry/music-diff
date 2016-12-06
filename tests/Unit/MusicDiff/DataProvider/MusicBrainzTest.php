@@ -4,6 +4,7 @@ namespace Tests\Unit\MusicDiff\DataProvider;
 use MusicBrainz\Artist;
 use MusicDiff\DataProvider\MusicBrainz as MusicBrainzDataProvider;
 use MusicBrainz\MusicBrainz as MusicBrainzClient;
+use MusicDiff\DataProvider\MusicBrainz;
 
 class MusicBrainzTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,6 +51,7 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Find releases by artist name.
+     * @covers MusicBrainz::findByArtist()
      */
     public function testFindByArtist()
     {

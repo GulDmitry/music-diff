@@ -2,6 +2,8 @@
 
 namespace MusicDiff\DataProvider;
 
+use AppBundle\Entity\Artist as DBArtist;
+use AppBundle\Entity\Album as DBAlbum;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\CollectionInterface;
@@ -74,5 +76,51 @@ class Doctrine implements DataProviderInterface
         }
 
         return $collection;
+    }
+
+    /**
+     * Save the collection to DB.
+     * @param CollectionInterface $collection
+     */
+    public function saveCollectionToDB(CollectionInterface $collection)
+    {
+        $em = $this->registry->getManager();
+        $storage = $collection->getStorage();
+
+        /** @var Artist $artist */
+        foreach ($storage as $artist) {
+            $dbArtist = $em->getRepository('AppBundle:Artist')->findArtistByName($artist->getName());
+            if ($dbArtist !== null) {
+                continue;
+            }
+            $newDbArtist = new DBArtist($artist->getName());
+            if ($artist->getBeginDate() !== null) {
+                $newDbArtist->setBeginDate(new \DateTime($artist->getBeginDate()));
+            }
+            if ($artist->getEndDate() !== null) {
+                $newDbArtist->setEndDate(new \DateTime($artist->getEndDate()));
+            }
+            if ($artist->getCountry() !== null) {
+                $newDbArtist->setCountry($artist->getCountry());
+            }
+
+            /** @var Album $album */
+            foreach ($storage[$artist] as $album) {
+                $newDBAlbum = new DBAlbum($album->getName(), $newDbArtist);
+                if ($album->getLength() !== null) {
+                    $newDBAlbum->setLength($album->getLength());
+                }
+                if ($album->getReleaseDate() !== null) {
+                    $newDBAlbum->setDate(new \DateTime($album->getReleaseDate()));
+                }
+                if ($album->getTypes() !== null) {
+                    $newDBAlbum->setTypes($album->getTypes());
+                }
+
+                $newDbArtist->addAlbum($newDBAlbum);
+            }
+            $em->persist($newDbArtist);
+        }
+        $em->flush();
     }
 }

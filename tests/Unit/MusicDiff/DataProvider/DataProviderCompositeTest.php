@@ -21,6 +21,7 @@ class DataProviderCompositeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Data is collected from all providers.
+     * @covers DataProviderComposite::findByArtist()
      */
     public function testCompositionWithMerge()
     {
@@ -66,6 +67,7 @@ class DataProviderCompositeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Data is collected from the first provider only.
+     * @covers DataProviderComposite::findByArtist()
      */
     public function testCompositionNoMerge()
     {

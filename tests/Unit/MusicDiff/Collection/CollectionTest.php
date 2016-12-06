@@ -114,6 +114,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Merge should works event if collection is empty.
+     * @covers Collection::addArtist()
+     * @covers Collection::merge()
      */
     public function testMergeEmptyCollection()
     {
@@ -129,6 +131,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Merge should works event if album collection is empty.
+     * @covers Collection::addArtist()
+     * @covers Collection::addAlbum()
+     * @covers Collection::merge()
      */
     public function testMergeEmptyAlbums()
     {

@@ -21,7 +21,7 @@ class ArtistGenre
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=FALSE)
      * @Assert\NotBlank()
      */
     private $genre;
@@ -33,10 +33,13 @@ class ArtistGenre
     private $artist;
 
     /**
+     * ArtistGenre constructor.
+     * @param string $genre
      * @param Artist $artist
      */
-    public function __construct(Artist $artist)
+    public function __construct(string $genre, Artist $artist)
     {
+        $this->genre = $genre;
         $this->artist = $artist;
     }
 
@@ -47,18 +50,6 @@ class ArtistGenre
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set genre.
-     * @param string $genre
-     * @return ArtistGenre
-     */
-    public function setGenre($genre)
-    {
-        $this->genre = $genre;
-
-        return $this;
     }
 
     /**

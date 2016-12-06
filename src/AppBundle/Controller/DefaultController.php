@@ -64,7 +64,6 @@ class DefaultController extends Controller
          *
          * 2 <=> 1; // 1
          * $a[1] ?? 'no'
-         * function():array
          * $app->setLogger(new class implements Logger {
                 public function log(string $msg) {
                     echo $msg;
@@ -78,18 +77,18 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $artist = (new Artist())->setName('Blind Guardian');
+        $artist = new Artist('Blind Guardian');
 
-        $record = (new Record($artist))->setName('Martyr');
-        $record2 = (new Record($artist))->setName('Prophecy');
+        $record = new Record('Martyr', $artist);
+        $record2 = new Record('Prophecy', $artist);
 
-        $album = (new Album($artist))->setName('Mirror Mirror');
-        $album2 = (new Album($artist))->setName('Imagination');
+        $album = new Album('Mirror Mirror', $artist);
+        $album2 = new Album('Imagination', $artist);
 
         $record->setAlbum($album);
 
-        $em->persist((new ArtistGenre($artist))->setGenre('Metal'));
-        $em->persist((new ArtistGenre($artist))->setGenre('Symphonic metal'));
+        $em->persist(new ArtistGenre('Metal', $artist));
+        $em->persist(new ArtistGenre('Symphonic metal', $artist));
         $em->persist($record);
         $em->persist($record2);
         $em->persist($album);

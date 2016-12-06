@@ -21,7 +21,7 @@ class Record
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=FALSE)
      * @Assert\NotBlank()
      */
     private $name;
@@ -39,10 +39,13 @@ class Record
     private $album;
 
     /**
+     * Record constructor.
+     * @param string $name
      * @param Artist $artist
      */
-    public function __construct(Artist $artist)
+    public function __construct(string $name, Artist $artist)
     {
+        $this->name = $name;
         $this->artist = $artist;
     }
 
@@ -53,17 +56,6 @@ class Record
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name.
-     * @param string $name
-     * @return Record
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
     }
 
     /**

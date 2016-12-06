@@ -31,15 +31,15 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
         $manager->expects($this->any())
             ->method('getRepository')
-            ->will($this->returnValue($repo));
+            ->willReturn($repo);
 
         $doctrine->expects($this->any())
             ->method('getRepository')
-            ->will($this->returnValue($repo));
+            ->willReturn($repo);
 
         $doctrine->expects($this->any())
             ->method('getManager')
-            ->will($this->returnValue($manager));
+            ->willReturn($manager);
 
         return $doctrine;
     }
@@ -65,13 +65,14 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Find releases by artist name.
+     * @covers Doctrine::findByArtist()
      */
     public function testFindByArtist()
     {
         $date = new \DateTime('2000-10-10');
-        $artist = (new Artist())->setName('Blind Guardian')->setCountry('DE')->setBeginDate($date);
-        $album = (new Album($artist))->setName('Mirror Mirror');
-        $album2 = (new Album($artist))->setName('Imagination')->setLength(6)->setDate($date);
+        $artist = (new Artist('Blind Guardian'))->setCountry('DE')->setBeginDate($date);
+        $album = new Album('Mirror Mirror', $artist);
+        $album2 = (new Album('Imagination', $artist))->setLength(6)->setDate($date);
 
         $artist->addAlbum($album);
         $artist->addAlbum($album2);
@@ -103,5 +104,67 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
             $expectedCollection->getStorage()->serialize(),
             $actualCollection->getStorage()->serialize()
         );
+    }
+
+    /**
+     * Convert collection to DB entities.
+     * @covers Doctrine::saveCollectionToDB()
+     */
+    public function testSaveCollectionToDB()
+    {
+        $date = new \DateTime('2000-10-10');
+        $artist = (new Artist('Blind Guardian'))->setCountry('DE')->setBeginDate($date);
+        $album = new Album('Mirror Mirror', $artist);
+        $album2 = (new Album('Imagination', $artist))->setLength(6)->setDate($date);
+        $artist->addAlbum($album);
+        $artist->addAlbum($album2);
+
+        $repo = $this->getMockBuilder(ArtistRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $repo->expects($this->any())
+            ->method('findArtistByName')
+            ->willReturn(null);
+
+        $doctrine = $this->getMockBuilder(Registry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $manager = $this->getMockBuilder(EntityManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $manager->expects($this->any())
+            ->method('getRepository')
+            ->willReturn($repo);
+
+        $manager->expects($this->once())
+            ->method('persist')
+            ->with($artist);
+
+        $manager->expects($this->once())
+            ->method('flush');
+
+        $doctrine->expects($this->any())
+            ->method('getRepository')
+            ->willReturn($repo);
+
+        $doctrine->expects($this->any())
+            ->method('getManager')
+            ->willReturn($manager);
+
+        $collection = new Collection();
+        $artist = new MBArtist('Blind Guardian');
+        $artist->setCountry('DE');
+        $artist->setBeginDate('2000-10-10');
+        $collection->addAlbum($artist, new MBAlbum('Mirror Mirror'));
+        $album = new MBAlbum('Imagination');
+        $album->setReleaseDate('2000-10-10');
+        $album->setLength(6);
+        $collection->addAlbum($artist, $album);
+
+        $dataProvider = new Doctrine($doctrine);
+        $dataProvider->saveCollectionToDB($collection);
     }
 }

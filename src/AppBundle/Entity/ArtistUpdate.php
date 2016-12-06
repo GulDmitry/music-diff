@@ -21,7 +21,7 @@ class ArtistUpdate
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=FALSE)
      * @Assert\DateTime()
      */
     private $lastUpdate;
@@ -33,10 +33,13 @@ class ArtistUpdate
     private $artist;
 
     /**
+     * ArtistUpdate constructor.
+     * @param \DateTime $lastUpdate
      * @param Artist $artist
      */
-    public function __construct(Artist $artist)
+    public function __construct(\DateTime $lastUpdate, Artist $artist)
     {
+        $this->lastUpdate = $lastUpdate;
         $this->artist = $artist;
     }
 
@@ -47,17 +50,6 @@ class ArtistUpdate
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set lastUpdate.
-     * @param \DateTime $lastUpdate
-     * @return ArtistUpdate
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-        return $this;
     }
 
     /**

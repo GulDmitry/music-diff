@@ -68,7 +68,6 @@ class ArrayConverterTest extends \PHPUnit_Framework_TestCase
                 'genres' => [],
             ]
         ];
-        $expectedCollection = new Collection();
 
         $actualArray = $this->converter->fromCollection($this->collection);
         $actualCollection = $this->converter->toCollection($actualArray);

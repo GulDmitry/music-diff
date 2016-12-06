@@ -27,10 +27,10 @@ class ArtistControllerTest extends WebTestCase
 
         $em = static::$kernel->getContainer()->get('doctrine')->getManager();
 
-        $this->artist = (new Artist())->setName('Artist');
+        $this->artist = new Artist('Artist');
 
-        $this->albums[] = $album1 = (new Album($this->artist))->setName('Album1');
-        $this->albums[] = $album2 = (new Album($this->artist))->setName('Album2');
+        $this->albums[] = $album1 = new Album('Album1', $this->artist);
+        $this->albums[] = $album2 = new Album('Album2', $this->artist);
 
         $em->persist($this->artist);
         $em->persist($album1);

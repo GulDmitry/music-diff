@@ -16,7 +16,7 @@ class AlbumTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->album = new Album(new Artist());
+        $this->album = new Album('album', new Artist('artist'));
     }
 
     /**

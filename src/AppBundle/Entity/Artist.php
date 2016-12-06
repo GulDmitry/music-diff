@@ -33,7 +33,7 @@ class Artist
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=FALSE)
      * @Assert\NotBlank()
      */
     private $name;
@@ -73,9 +73,11 @@ class Artist
 
     /**
      * Artist constructor.
+     * @param string $name
      */
-    public function __construct()
+    public function __construct(string $name)
     {
+        $this->name = $name;
         $this->albums = new ArrayCollection();
         $this->records = new ArrayCollection();
         $this->genres = new ArrayCollection();
@@ -88,17 +90,6 @@ class Artist
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name.
-     * @param string $name
-     * @return Artist
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
     }
 
     /**
