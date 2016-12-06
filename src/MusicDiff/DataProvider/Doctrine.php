@@ -116,8 +116,7 @@ class Doctrine implements DataProviderInterface
                 if ($album->getTypes() !== null) {
                     $newDBAlbum->setTypes($album->getTypes());
                 }
-
-                $newDbArtist->addAlbum($newDBAlbum);
+                $em->persist($newDBAlbum);
             }
             $em->persist($newDbArtist);
         }

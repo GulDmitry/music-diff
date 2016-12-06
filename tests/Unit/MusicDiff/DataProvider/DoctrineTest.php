@@ -70,12 +70,18 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
     public function testFindByArtist()
     {
         $date = new \DateTime('2000-10-10');
-        $artist = (new Artist('Blind Guardian'))->setCountry('DE')->setBeginDate($date);
+
+        $artist = $this->getMockBuilder(Artist::class)
+            ->setConstructorArgs(['Blind Guardian'])
+            ->getMock();
+
         $album = new Album('Mirror Mirror', $artist);
         $album2 = (new Album('Imagination', $artist))->setLength(6)->setDate($date);
 
-        $artist->addAlbum($album);
-        $artist->addAlbum($album2);
+        $artist->expects($this->any())->method('getName')->willReturn('Blind Guardian');
+        $artist->expects($this->any())->method('getCountry')->willReturn('DE');
+        $artist->expects($this->any())->method('getBeginDate')->willReturn($date);
+        $artist->expects($this->any())->method('getAlbums')->willReturn([$album, $album2]);
 
         $repo = $this->getMockBuilder(ArtistRepository::class)
             ->disableOriginalConstructor()
@@ -112,12 +118,18 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveCollectionToDB()
     {
+        $artist = $this->getMockBuilder(Artist::class)
+            ->setConstructorArgs(['Blind Guardian'])
+            ->getMock();
+
         $date = new \DateTime('2000-10-10');
-        $artist = (new Artist('Blind Guardian'))->setCountry('DE')->setBeginDate($date);
         $album = new Album('Mirror Mirror', $artist);
         $album2 = (new Album('Imagination', $artist))->setLength(6)->setDate($date);
-        $artist->addAlbum($album);
-        $artist->addAlbum($album2);
+
+        $artist->expects($this->any())->method('getName')->willReturn('Blind Guardian');
+        $artist->expects($this->any())->method('getCountry')->willReturn('DE');
+        $artist->expects($this->any())->method('getBeginDate')->willReturn($date);
+        $artist->expects($this->any())->method('getAlbums')->willReturn([$album, $album2]);
 
         $repo = $this->getMockBuilder(ArtistRepository::class)
             ->disableOriginalConstructor()
@@ -139,9 +151,9 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->willReturn($repo);
 
-        $manager->expects($this->once())
+        $manager->expects($this->exactly(3))
             ->method('persist')
-            ->with($artist);
+            ->withConsecutive($album, $album2, $artist);
 
         $manager->expects($this->once())
             ->method('flush');

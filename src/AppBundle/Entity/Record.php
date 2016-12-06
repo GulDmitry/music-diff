@@ -42,11 +42,13 @@ class Record
      * Record constructor.
      * @param string $name
      * @param Artist $artist
+     * @param Album $album
      */
-    public function __construct(string $name, Artist $artist)
+    public function __construct(string $name, Artist $artist, Album $album)
     {
         $this->name = $name;
         $this->artist = $artist;
+        $this->album = $album;
     }
 
     /**
@@ -74,17 +76,6 @@ class Record
     public function getArtist()
     {
         return $this->artist;
-    }
-
-    /**
-     * Set album.
-     * @param Album $album
-     * @return Record
-     */
-    public function setAlbum(Album $album = null)
-    {
-        $this->album = $album;
-        return $this;
     }
 
     /**

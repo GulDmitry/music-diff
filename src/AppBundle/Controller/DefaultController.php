@@ -9,6 +9,7 @@ use AppBundle\Entity\Record;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\Converter\ArrayConverter;
+use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist as MusicDiffArtist;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,13 +80,11 @@ class DefaultController extends Controller
 
         $artist = new Artist('Blind Guardian');
 
-        $record = new Record('Martyr', $artist);
-        $record2 = new Record('Prophecy', $artist);
-
         $album = new Album('Mirror Mirror', $artist);
         $album2 = new Album('Imagination', $artist);
 
-        $record->setAlbum($album);
+        $record = new Record('Martyr', $artist, $album);
+        $record2 = new Record('Prophecy', $artist, $album);
 
         $em->persist(new ArtistGenre('Metal', $artist));
         $em->persist(new ArtistGenre('Symphonic metal', $artist));
@@ -126,12 +125,14 @@ class DefaultController extends Controller
     private function musicBrainz()
     {
         $initCollection = new Collection();
-        $initCollection->addArtist(new MusicDiffArtist('blind guardian'));
+        $initCollection->addArtist(new MusicDiffArtist('in flames'));
 
         $musicDiff = $this->get('music_diff');
         $musicDiff->setInitCollection($initCollection);
 
         $restoredCollection = $musicDiff->restoreCollection();
+
+        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
 
         $array = (new ArrayConverter())->fromCollection($restoredCollection);
     }

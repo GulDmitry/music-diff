@@ -183,26 +183,6 @@ class Album
     }
 
     /**
-     * Add record.
-     * @param Record $record
-     * @return Album
-     */
-    public function addRecord(Record $record)
-    {
-        $this->records[] = $record;
-        return $this;
-    }
-
-    /**
-     * Remove record.
-     * @param Record $record
-     */
-    public function removeRecord(Record $record)
-    {
-        $this->records->removeElement($record);
-    }
-
-    /**
      * Get records.
      * @return ArrayCollection
      */

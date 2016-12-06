@@ -162,26 +162,6 @@ class Artist
     }
 
     /**
-     * Add album.
-     * @param Album $album
-     * @return Artist
-     */
-    public function addAlbum(Album $album)
-    {
-        $this->albums[] = $album;
-        return $this;
-    }
-
-    /**
-     * Remove album.
-     * @param Album $album
-     */
-    public function removeAlbum(Album $album)
-    {
-        $this->albums->removeElement($album);
-    }
-
-    /**
      * Get albums.
      * @return ArrayCollection
      */
@@ -191,53 +171,12 @@ class Artist
     }
 
     /**
-     * Add record.
-     * @param Record $record
-     * @return Artist
-     */
-    public function addRecord(Record $record)
-    {
-        $this->records[] = $record;
-
-        return $this;
-    }
-
-    /**
-     * Remove record.
-     * @param Record $record
-     */
-    public function removeRecord(Record $record)
-    {
-        $this->records->removeElement($record);
-    }
-
-    /**
      * Get records.
      * @return ArrayCollection
      */
     public function getRecords()
     {
         return $this->records;
-    }
-
-    /**
-     * Add genre.
-     * @param ArtistGenre $genre
-     * @return Artist
-     */
-    public function addGenre(ArtistGenre $genre)
-    {
-        $this->genres[] = $genre;
-        return $this;
-    }
-
-    /**
-     * Remove genre.
-     * @param ArtistGenre $genre
-     */
-    public function removeGenre(ArtistGenre $genre)
-    {
-        $this->genres->removeElement($genre);
     }
 
     /**
