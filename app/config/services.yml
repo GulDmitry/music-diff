@@ -7,6 +7,35 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
+#
 # Beware of inheritance in services, A extends B. If you want to add a setter of a parameter to constructor - you will
 # have to override both services.
+
+    http_client:
+        class: GuzzleHttp\Client
+
+    music_brainz.http_adapter:
+        class: MusicBrainz\HttpAdapters\GuzzleSixAdapter
+        arguments: ['@http_client']
+
+    music_brainz.client:
+        class: MusicBrainz\MusicBrainz
+        arguments: ['@music_brainz.http_adapter']
+        calls:
+            - [setUserAgent, ['%music_brainz.application%', '%music_brainz.version%', '%music_brainz.contact_info%']]
+
+    music_diff.data_provider.muzic_brainz:
+        class: MusicDiff\DataProvider\MusicBrainz
+        arguments: ['@music_brainz.client']
+
+    music_diff.data_provider.doctrine:
+        class: MusicDiff\DataProvider\Doctrine
+        arguments: ['@doctrine']
+
+    music_diff.data_provider.composite:
+        class: MusicDiff\DataProvider\DataProviderComposite
+        arguments: [false, '@music_diff.data_provider.doctrine', '@music_diff.data_provider.muzic_brainz']
+
+    music_diff:
+        class: MusicDiff\MusicDiff
+        arguments: ['@music_diff.data_provider.composite']

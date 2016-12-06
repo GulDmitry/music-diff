@@ -20,3 +20,8 @@ parameters:
 
     # For Webpack dev server to reload assets in runtime.
     assets_base_url: "http://localhost:8081"
+
+    # Music Brainz data provider
+    music_brainz.application: MusicDiff
+    music_brainz.version: 0.1
+    music_brainz.contact_info: example@example.com

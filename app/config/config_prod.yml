@@ -19,3 +19,12 @@ monolog:
             level: debug
         console:
             type:  console
+
+doctrine:
+    orm:
+        result_cache_driver:
+            cache_provider: file_system_cache
+        query_cache_driver:
+            cache_provider: file_system_cache
+        metadata_cache_driver:
+            cache_provider: file_system_cache
