@@ -29,6 +29,7 @@ class ArtistController extends FOSRestController
         $musicDiff = $this->get('music_diff');
         $musicDiff->setInitCollection($initCollection);
 
+        // TODO: update metadata every * days.
         $restoredCollection = $musicDiff->restoreCollection();
 
         (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);

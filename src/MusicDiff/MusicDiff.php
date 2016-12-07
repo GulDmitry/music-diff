@@ -50,6 +50,8 @@ class MusicDiff
         $restoredCollection = clone $this->initCollection;
         $storage = $this->initCollection->getStorage();
 
+        // TODO: if no artist found throw exception or return false.
+
         /** @var Artist $artist */
         foreach ($storage as $artist) {
             try {

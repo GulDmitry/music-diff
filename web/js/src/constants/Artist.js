@@ -1,0 +1,3 @@
+export const ARTIST_REQUEST = 'ARTIST_REQUEST';
+export const ARTIST_FOUND = 'ARTIST_FOUND';
+export const ARTIST_NOT_FOUND = 'ARTIST_NOT_FOUND';

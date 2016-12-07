@@ -16,23 +16,14 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="index")
      * @Route("/", name="homepage")
-     *
-     * // TODO: test react router, remove in future.
-     * @Route("/admin", name="admin")
-     * @Route("/genre/{genre}", name="genre")
-     * @Route("/genre/{genre}/{release}", name="genre_release")
-     * @Route("/list", name="list")
-     * @Route("/login-temp", name="temp_login")
      */
     public function indexAction(Request $request)
     {
-        $this->testDbScheme();
-        $rawQueryResult = $this->testRawQueryCache();
+//        $this->testDbScheme();
+//        $rawQueryResult = $this->testRawQueryCache();
 
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
-            'query_result' => count($rawQueryResult),
         ]);
     }
 
