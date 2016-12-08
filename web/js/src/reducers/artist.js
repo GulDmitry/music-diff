@@ -1,19 +1,26 @@
 import {
-    ARTIST_REQUEST,
-    ARTIST_FOUND,
-    ARTIST_NOT_FOUND,
+    ARTIST_ADD,
+    ARTIST_LOADING,
 } from '../constants/Artist'
 
-const initialState = {};
+const initialState = {
+    artist: [],
+};
 
 export default function artist(state = initialState, action) {
     switch (action.type) {
-        case ARTIST_REQUEST:
-            return {...state, loading: true};
-        case ARTIST_NOT_FOUND:
-            return {error: action.payload.error};
-        case ARTIST_FOUND:
-            return {artist: action.payload.artist};
+        case ARTIST_ADD: {
+            return {artist: state.artist.concat(action.payload.data)};
+        }
+        case ARTIST_LOADING: {
+            let flag;
+            try {
+                flag = action.payload.loading;
+            } catch (e) {
+                flag = true;
+            }
+            return {...state, loading: flag};
+        }
         default:
             return state
     }

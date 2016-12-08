@@ -8,7 +8,14 @@ use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\Converter\ArrayConverter;
 use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist;
+use MusicDiff\Exception\NotFoundException;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Rest\Version("v1")
@@ -23,6 +30,19 @@ class ArtistController extends FOSRestController
      */
     public function getArtistAction(string $name)
     {
+        $form = $this->createFormBuilder([], ['csrf_protection' => false])
+            ->add('artist-name', TextType::class, [
+                'constraints' => [new Length(['min' => 2, 'max' => 255])],
+            ])
+            ->getForm()
+            ->submit([
+                'artist-name' => $name,
+            ]);
+
+        if (!$form->isValid()) {
+            return $this->handleView($this->view($form->getErrors(), 400));
+        }
+
         $initCollection = new Collection();
         $initCollection->addArtist(new Artist($name));
 
@@ -31,6 +51,9 @@ class ArtistController extends FOSRestController
 
         // TODO: update metadata every * days.
         $restoredCollection = $musicDiff->restoreCollection();
+
+        // If no artist found.
+//        throw new HttpException(400, "New comment is not valid.");
 
         (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
 

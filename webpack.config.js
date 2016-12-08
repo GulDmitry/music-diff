@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 process.env.ENV = process.env.ENV || 'dev';
 
 const config = {
-    devtool: 'eval-cheap-module-source-map',
     entry: [
         'babel-polyfill',
         './web/js/app.js'
