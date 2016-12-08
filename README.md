@@ -70,16 +70,22 @@ File/Directory | Absolute path on the server
 * Auth (FOSUser)
   * Local
   * Google
-  * FB
-  * VK
-* Symfony forms.
+  * Social Networks
+* MusicDiff frontend: 
+  * Clear button.
+  * select genres to search
+  * sortable table
+  * show albums
+  * exclude the same artists,
+  * highlight rows, click on artist
+  * save\load scheme in\from LocalStorage
+  * calculate difference
 * AOP for logs, cache, websocker, etc.
 * Subscriptions for users.
 * Schedule band request, sent result back via websocket.
 * Show band and albums.
 * Tutorial in the 'Main jumbotron' container, can be disabled.
 * Admin Area.
-* API for [http://musicbrainz.org](http://musicbrainz.org).
 * Advanced search (elastic).
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
@@ -87,5 +93,6 @@ File/Directory | Absolute path on the server
 * Auth as a microservice (GO time!).
 * Docker prod config.
 * DB indexes.
+* Acceptance tests with behat.
 * Hot reload? HMR (hot module replacement) react-hot-loader --save-dev
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)
