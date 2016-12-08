@@ -60,6 +60,14 @@ class DefaultController extends Controller
          * $closure->call(new A) - call the func with new $this
          * unserialize - allowed_classes
          * use namespace\{ClassA, ClassB, ClassC as C};
+         *
+         * 7 -> 7.1
+         * ?string - + null
+         * :void
+         * [$id1, $name1] = $data[0]; instead of list() + keys ["id" => $id1, "name" => $name1]
+         *  public const PUBLIC_CONST_B = 2;
+         * pseudo-type iterable
+         * catch (FirstException | SecondException $e) {
          */
 
         $em = $this->getDoctrine()->getManager();

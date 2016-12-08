@@ -8,14 +8,9 @@ use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\Converter\ArrayConverter;
 use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist;
-use MusicDiff\Exception\NotFoundException;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Rest\Version("v1")
@@ -52,7 +47,7 @@ class ArtistController extends FOSRestController
         // TODO: update metadata every * days.
         $restoredCollection = $musicDiff->restoreCollection();
 
-        // If no artist found.
+        // TODO: If no artist found.
 //        throw new HttpException(400, "New comment is not valid.");
 
         (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);

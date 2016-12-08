@@ -2,7 +2,6 @@
 
 namespace MusicDiff;
 
-use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\CollectionInterface;
 use MusicDiff\DataProvider\DataProviderInterface;
 use MusicDiff\Entity\Artist;
@@ -33,16 +32,16 @@ class MusicDiff
      * Set init collection.
      * @param CollectionInterface $collection
      */
-    public function setInitCollection(CollectionInterface $collection)
+    public function setInitCollection(CollectionInterface $collection): void
     {
         $this->initCollection = $collection;
     }
 
     /**
      * Restore the init collection by filling its missed parts.
-     * @return CollectionInterface
+     * @return CollectionInterface|null
      */
-    public function restoreCollection(): CollectionInterface
+    public function restoreCollection(): ?CollectionInterface
     {
         if ($this->initCollection === null) {
             throw new InvalidArgumentException('Initial collection should not be empty.');

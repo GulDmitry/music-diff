@@ -9,7 +9,7 @@ Music Difference Application
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
-* `sudo chmod -R 777 var/*`
+* `sudo chmod -R 777 var/cache var/logs vendor`
 * `docker-compose up -d`
 * `docker exec md-php php composer.phar install`
 * `npm install` or `npm install --production`
