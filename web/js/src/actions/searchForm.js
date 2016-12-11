@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     ARTIST_ADD,
     ARTIST_LOADING,
@@ -13,33 +14,23 @@ export function handleSearch(payload) {
     return (dispatch, state) => {
         dispatch({type: ARTIST_LOADING});
 
-        $.ajax({
+        const ajaxPromise = Promise.resolve($.ajax({
             method: 'GET',
             url: BASE_URL + '/api/artists/' + payload,
             headers: {
                 'X-Accept-Version': 'v1'
             }
-        }).done(function(response) {
+        }));
+        ajaxPromise.then((response) => {
             dispatch({
                 type: ARTIST_ADD,
                 payload: {
                     data: response,
                 }
             });
-            dispatch({type: SEARCH_FORM_RENDER});
-
-            // Update Artist according to the filter form.
-            applyFilter(state().filterForm.filter.albums)(dispatch);
-        }).fail(function(jqXHR) {
+        }, (jqXHR) => {
             const response = jqXHR.responseJSON;
             let errorsPayload = {};
-
-            dispatch({
-                type: ARTIST_LOADING,
-                payload: {
-                    loading: false,
-                }
-            });
 
             if (response.error && response.error.code) {
                 errorsPayload.globalError = `Artist "${payload}" is not found.`;
@@ -51,6 +42,20 @@ export function handleSearch(payload) {
                 type: SEARCH_FORM_ERRORS,
                 payload: {
                     errors: errorsPayload,
+                }
+            });
+            // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
+        });
+        ajaxPromise.then(() => {
+            dispatch({type: SEARCH_FORM_RENDER});
+
+            // Update Artist according to the filter form.
+            applyFilter(state().filterForm.filter.albums)(dispatch);
+        }, () => {
+            dispatch({
+                type: ARTIST_LOADING,
+                payload: {
+                    loading: false,
                 }
             });
         });
