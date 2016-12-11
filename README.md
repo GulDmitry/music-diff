@@ -73,9 +73,6 @@ File/Directory | Absolute path on the server
   * Social Networks
 * MusicDiff frontend: 
   * Clear button.
-  * select genres to search
-  * sortable table
-  * show albums
   * exclude the same artists,
   * highlight rows, click on artist
   * save\load scheme in\from LocalStorage

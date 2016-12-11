@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from 'redux'
-import rootReducer from '../reducers'
+import rootReducer from '../reducers/musicDiffCombine'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 

@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 import SearchFormErrorDecorator from './SearchFormErrorDecorator'
 
-export default class Search extends Component {
+export default class SearchForm extends Component {
     static propTypes = {
         actions: PropTypes.shape({
             handleSearch: PropTypes.func.isRequired,

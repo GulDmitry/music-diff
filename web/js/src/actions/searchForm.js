@@ -7,9 +7,10 @@ import {
     SEARCH_FORM_RENDER,
 } from '../constants/SearchForm'
 import {BASE_URL} from '../router/baseUrl'
+import {applyFilter} from '../actions/filterForm'
 
 export function handleSearch(payload) {
-    return (dispatch) => {
+    return (dispatch, state) => {
         dispatch({type: ARTIST_LOADING});
 
         $.ajax({
@@ -26,6 +27,9 @@ export function handleSearch(payload) {
                 }
             });
             dispatch({type: SEARCH_FORM_RENDER});
+
+            // Update Artist according to the filter form.
+            applyFilter(state().filterForm.filter.albums)(dispatch);
         }).fail(function(jqXHR) {
             const response = jqXHR.responseJSON;
             let errorsPayload = {};
@@ -33,7 +37,7 @@ export function handleSearch(payload) {
             dispatch({
                 type: ARTIST_LOADING,
                 payload: {
-                    loading: false
+                    loading: false,
                 }
             });
 

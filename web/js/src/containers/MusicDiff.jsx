@@ -4,10 +4,9 @@ import {connect} from 'react-redux'
 
 import Artist from '../components/Artist'
 import SearchForm from '../components/SearchForm'
-import * as artistActions from '../actions/artist'
 import * as searchFormActions from '../actions/searchForm'
 
-class MusicDiffApp extends Component {
+class MusicDiff extends Component {
     static propTypes = {
         artist: React.PropTypes.object.isRequired,
         artistActions: React.PropTypes.object.isRequired,
@@ -19,13 +18,18 @@ class MusicDiffApp extends Component {
         const {artist, searchForm} = this.props;
 
         return <object>
-            <SearchForm
-                actions={this.props.searchFormActions}
-                errors={searchForm.errors}
-            />
+            <div className='row'>
+                <div className='col-md-9'>
+                    <SearchForm
+                        actions={this.props.searchFormActions}
+                        errors={searchForm.errors}
+                    />
+                </div>
+            </div>
             <Artist
                 actions={this.props.artistActions}
                 artist={artist.artist}
+                filter={artist.filter}
                 loading={artist.loading}
             />
         </object>
@@ -41,9 +45,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        artistActions: bindActionCreators(artistActions, dispatch),
-        searchFormActions: bindActionCreators(searchFormActions, dispatch)
+        artistActions: bindActionCreators({}, dispatch),
+        searchFormActions: bindActionCreators(searchFormActions, dispatch),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MusicDiffApp)
+export default connect(mapStateToProps, mapDispatchToProps)(MusicDiff)
