@@ -91,5 +91,5 @@ File/Directory | Absolute path on the server
 * Docker prod config.
 * DB indexes.
 * Acceptance tests with behat.
-* Hot reload? HMR (hot module replacement) react-hot-loader --save-dev
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)
+* async\await and Promise.all() to get diff via multiply calls [link](https://habrahabr.ru/post/282477/)

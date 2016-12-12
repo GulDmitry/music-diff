@@ -26,7 +26,7 @@ export default class FilterForm extends Component {
 
         return <object>
             <form>
-                <div className='form-group row'>
+                <div className='form-group'>
                     <div>
                         <label className='control-label'>Album Types</label>
                         <div className='checkbox'>
