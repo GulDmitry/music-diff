@@ -6,10 +6,7 @@ export default class SearchForm extends Component {
         actions: PropTypes.shape({
             handleSearch: PropTypes.func.isRequired,
         }),
-        errors: PropTypes.shape({
-            formErrors: PropTypes.object,
-            globalError: PropTypes.string,
-        }),
+        errors: PropTypes.object,
     };
 
     handleSubmit(e) {
@@ -20,17 +17,9 @@ export default class SearchForm extends Component {
     }
 
     render() {
-        let globalErrorTpl, formErrors;
-
-        if (this.props.errors && this.props.errors.globalError) {
-            globalErrorTpl = <div className='alert alert-danger'>{this.props.errors.globalError}</div>
-        }
-        if (this.props.errors && this.props.errors.formErrors) {
-            formErrors = this.props.errors.formErrors;
-        }
+        let formErrors = this.props.errors;
 
         return <object>
-            {globalErrorTpl}
             <form onSubmit={::this.handleSubmit}>
                 <div className={'form-group row ' + (formErrors ? 'has-error' : '')}>
                     <div className='col-lg-3'>

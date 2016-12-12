@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {
     ARTIST_ADD,
     ARTIST_LOADING,
@@ -7,12 +6,17 @@ import {
     SEARCH_FORM_ERRORS,
     SEARCH_FORM_RENDER,
 } from '../constants/SearchForm'
+import {
+    GLOBAL_ALERT_ALERT,
+    GLOBAL_ALERT_CLEAR,
+} from '../constants/GlobalAlert'
 import {BASE_URL} from '../router/baseUrl'
 import {applyFilter} from '../actions/filterForm'
 
 export function handleSearch(payload) {
     return (dispatch, state) => {
         dispatch({type: ARTIST_LOADING});
+        dispatch({type: GLOBAL_ALERT_CLEAR});
 
         const ajaxPromise = Promise.resolve($.ajax({
             method: 'GET',
@@ -30,20 +34,23 @@ export function handleSearch(payload) {
             });
         }, (jqXHR) => {
             const response = jqXHR.responseJSON;
-            let errorsPayload = {};
 
             if (response.error && response.error.code) {
-                errorsPayload.globalError = `Artist "${payload}" is not found.`;
+                dispatch({
+                    type: GLOBAL_ALERT_ALERT,
+                    payload: {
+                        error: `Artist "${payload}" is not found.`,
+                    }
+                });
             }
             if (response.form && response.form.children) {
-                errorsPayload.formErrors = response.form.children;
+                dispatch({
+                    type: SEARCH_FORM_ERRORS,
+                    payload: {
+                        errors: response.form.children,
+                    }
+                });
             }
-            dispatch({
-                type: SEARCH_FORM_ERRORS,
-                payload: {
-                    errors: errorsPayload,
-                }
-            });
             // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
         });
         ajaxPromise.then(() => {

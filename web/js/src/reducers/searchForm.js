@@ -10,12 +10,7 @@ export default function searchForm(state = initialState, action) {
         case SEARCH_FORM_RENDER:
             return {};
         case SEARCH_FORM_ERRORS:
-            return {
-                ...state, errors: {
-                    formErrors: action.payload.errors.formErrors,
-                    globalError: action.payload.errors.globalError
-                }
-            };
+            return {...state, errors: action.payload.errors};
         default:
             return state
     }
