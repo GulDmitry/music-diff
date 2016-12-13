@@ -27,8 +27,13 @@ class Sidebar extends Component {
             <br/>
             <button onClick={this.props.generateDiffActions.generateDiff}
                     type='button'
-                    className='btn btn-primary btn-lg center-block'>
+                    className='btn btn-primary btn-lg center-block btn-block'>
                 Generate Diff
+            </button>
+            <button onClick={this.props.generateDiffActions.clearCollection}
+                    type='button'
+                    className='btn btn-default btn-sm center-block btn-block'>
+                Clear Collection
             </button>
         </div>
     }

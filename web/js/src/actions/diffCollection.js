@@ -55,3 +55,14 @@ export function generateDiff() {
         });
     }
 }
+
+export function clearCollection() {
+    return (dispatch) => {
+        dispatch({
+            type: ARTIST_REPLACE,
+            payload: {
+                data: [],
+            }
+        });
+    }
+}
