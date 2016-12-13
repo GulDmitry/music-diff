@@ -6,12 +6,14 @@ import FilterForm from '../components/FilterForm'
 import ImportExport from '../components/ImportExport'
 import * as filterFormActions from '../actions/filterForm'
 import * as importExportActions from '../actions/importExport'
+import * as generateDiffActions from '../actions/diffCollection'
 
 class Sidebar extends Component {
     static propTypes = {
         filterForm: React.PropTypes.object.isRequired,
         filterFormActions: React.PropTypes.object.isRequired,
         importExportActions: React.PropTypes.object.isRequired,
+        generateDiffActions: React.PropTypes.object.isRequired,
     };
 
     render() {
@@ -22,6 +24,12 @@ class Sidebar extends Component {
             <ImportExport actions={this.props.importExportActions}/>
             <h3>Filter</h3>
             <FilterForm actions={this.props.filterFormActions} filter={filterForm.filter}/>
+            <br/>
+            <button onClick={this.props.generateDiffActions.generateDiff}
+                    type='button'
+                    className='btn btn-primary btn-lg center-block'>
+                Generate Diff
+            </button>
         </div>
     }
 }
@@ -35,7 +43,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         filterFormActions: bindActionCreators(filterFormActions, dispatch),
-        importExportActions: bindActionCreators(importExportActions, dispatch)
+        importExportActions: bindActionCreators(importExportActions, dispatch),
+        generateDiffActions: bindActionCreators(generateDiffActions, dispatch),
     }
 }
 

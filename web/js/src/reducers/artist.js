@@ -2,6 +2,7 @@ import {
     ARTIST_ADD,
     ARTIST_LOADING,
     ARTIST_FILTER,
+    ARTIST_REPLACE,
 } from '../constants/Artist'
 
 const initialState = {
@@ -13,9 +14,10 @@ const initialState = {
 
 export default function artist(state = initialState, action) {
     switch (action.type) {
-        case ARTIST_ADD: {
+        case ARTIST_ADD:
             return {artist: action.payload.data.concat(state.artist), filter: action.payload.filter || state.filter};
-        }
+        case ARTIST_REPLACE:
+            return {artist: action.payload.data, filter: action.payload.filter || state.filter};
         case ARTIST_LOADING: {
             let flag;
             try {

@@ -78,9 +78,9 @@ File/Directory | Absolute path on the server
   * save\load scheme in\from LocalStorage
   * calculate difference
 * AOP for logs, cache, websocker, etc.
+* Move collection from SplObjectStorage to array. Add method hasAlbum()...
 * Subscriptions for users.
 * Schedule band request, sent result back via websocket.
-* Show band and albums.
 * Tutorial in the 'Main jumbotron' container, can be disabled.
 * Admin Area.
 * Advanced search (elastic).
@@ -89,7 +89,7 @@ File/Directory | Absolute path on the server
 * https
 * Auth as a microservice (GO time!).
 * Docker prod config.
-* DB indexes.
+* DB indices.
 * Acceptance tests with behat.
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)
 * async\await and Promise.all() to get diff via multiply calls [link](https://habrahabr.ru/post/282477/)

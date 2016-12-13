@@ -1,5 +1,5 @@
 import {
-    ARTIST_ADD,
+    ARTIST_REPLACE,
 } from '../constants/Artist'
 import {showAlert, clear} from '../actions/globalAlert'
 
@@ -28,7 +28,7 @@ export function importCollection() {
 export function exportCollection(collection) {
     return (dispatch) => {
         dispatch({
-            type: ARTIST_ADD,
+            type: ARTIST_REPLACE,
             payload: {
                 data: collection,
             }

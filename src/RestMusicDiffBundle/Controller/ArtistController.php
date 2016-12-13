@@ -8,7 +8,9 @@ use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\Converter\ArrayConverter;
 use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist;
+use MusicDiff\Helper\DiffCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -55,6 +57,29 @@ class ArtistController extends FOSRestController
         $arrayCollection = (new ArrayConverter())->fromCollection($restoredCollection);
 
         $view = $this->view($arrayCollection, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * Calculate difference by array collection.
+     * @param Request $request
+     * @return Response
+     */
+    public function postDifferenceAction(Request $request)
+    {
+        $arrayConverter = new ArrayConverter();
+        $arrayCollection = json_decode($request->get('collection'), true);
+        $collection = $arrayConverter->toCollection($arrayCollection);
+
+        $musicDiff = $this->get('music_diff');
+        $musicDiff->setInitCollection($collection);
+        $restoredCollection = $musicDiff->restoreCollection();
+
+        $diffCollection = (new DiffCollection())->calculateDiff($collection, $restoredCollection);
+
+        $arrayDiffCollection = $arrayConverter->fromCollection($diffCollection);
+
+        $view = $this->view($arrayDiffCollection, 200);
         return $this->handleView($view);
     }
 }

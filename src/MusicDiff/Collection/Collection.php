@@ -4,7 +4,6 @@ namespace MusicDiff\Collection;
 
 use MusicDiff\Entity\Album;
 use MusicDiff\Entity\Artist;
-use Symfony\Component\Asset\Packages;
 
 class Collection implements CollectionInterface
 {
