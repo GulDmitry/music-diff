@@ -3,7 +3,18 @@ import {
 } from '../constants/Artist'
 import {showAlert, clear} from '../actions/globalAlert'
 
-export function importCollection() {
+export function importCollection(collection) {
+    return (dispatch) => {
+        dispatch({
+            type: ARTIST_REPLACE,
+            payload: {
+                data: collection,
+            }
+        });
+    }
+}
+
+export function exportCollection() {
     return (dispatch, getStore) => {
         const store = getStore();
         const downloadData = store.artist.artist;
@@ -22,16 +33,5 @@ export function importCollection() {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
-    }
-}
-
-export function exportCollection(collection) {
-    return (dispatch) => {
-        dispatch({
-            type: ARTIST_REPLACE,
-            payload: {
-                data: collection,
-            }
-        });
     }
 }

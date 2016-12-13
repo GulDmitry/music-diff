@@ -5,6 +5,7 @@ namespace RestMusicDiffBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use MusicDiff\Collection\Collection;
+use MusicDiff\Collection\CollectionInterface;
 use MusicDiff\Collection\Converter\ArrayConverter;
 use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist;
@@ -43,16 +44,10 @@ class ArtistController extends FOSRestController
         $initCollection = new Collection();
         $initCollection->addArtist(new Artist($name));
 
-        $musicDiff = $this->get('music_diff');
-        $musicDiff->setInitCollection($initCollection);
-
-        // TODO: update metadata every * days.
-        $restoredCollection = $musicDiff->restoreCollection();
+        $restoredCollection = $this->restoreCollection($initCollection);
 
         // TODO: If no artist found.
 //        throw new HttpException(400, "New comment is not valid.");
-
-        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
 
         $arrayCollection = (new ArrayConverter())->fromCollection($restoredCollection);
 
@@ -71,9 +66,7 @@ class ArtistController extends FOSRestController
         $arrayCollection = json_decode($request->get('collection'), true);
         $collection = $arrayConverter->toCollection($arrayCollection);
 
-        $musicDiff = $this->get('music_diff');
-        $musicDiff->setInitCollection($collection);
-        $restoredCollection = $musicDiff->restoreCollection();
+        $restoredCollection = $this->restoreCollection($collection);
 
         $diffCollection = (new DiffCollection())->calculateDiff($collection, $restoredCollection);
 
@@ -81,5 +74,23 @@ class ArtistController extends FOSRestController
 
         $view = $this->view($arrayDiffCollection, 200);
         return $this->handleView($view);
+    }
+
+    /**
+     * Restore the collection.
+     * @param CollectionInterface $initColl
+     * @return CollectionInterface
+     */
+    private function restoreCollection(CollectionInterface $initColl): CollectionInterface
+    {
+        $musicDiff = $this->get('music_diff');
+        $musicDiff->setInitCollection($initColl);
+
+        // TODO: update metadata every * days.
+        $restoredCollection = $musicDiff->restoreCollection();
+
+        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
+
+        return $restoredCollection;
     }
 }
