@@ -72,10 +72,8 @@ File/Directory | Absolute path on the server
   * Google
   * Social Networks
 * MusicDiff frontend: 
-  * Clear button.
   * exclude the same artists,
   * highlight rows, click on artist
-  * save\load scheme in\from LocalStorage
   * calculate difference
 * AOP for logs, cache, websocker, etc.
 * Move collection from SplObjectStorage to array. Add method hasAlbum()...
@@ -86,7 +84,6 @@ File/Directory | Absolute path on the server
 * Advanced search (elastic).
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
-* https
 * Auth as a microservice (GO time!).
 * Docker prod config.
 * DB indices.

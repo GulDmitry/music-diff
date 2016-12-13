@@ -1,13 +1,12 @@
 version: '2'
 services:
   nginx:
-      image: nginx:1.11
+      build: ./app/docker/nginx
       container_name: md-web
       ports:
         - "8080:80"
+        - "8043:443"
       volumes:
-#        - ./app/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-        - ./app/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
         - ./:/var/www/html
       depends_on:
         - db
