@@ -36,6 +36,7 @@ class MusicDiff extends Component {
                 artist={artist.artist}
                 filter={artist.filter}
                 loading={artist.loading}
+                diff={artist.diff}
             />
         </object>
     }

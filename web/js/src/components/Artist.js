@@ -7,6 +7,7 @@ export default class Artist extends Component {
         loading: PropTypes.bool,
         actions: PropTypes.object.isRequired,
         filter: PropTypes.object.isRequired,
+        diff: PropTypes.array,
     };
 
     render() {
@@ -20,12 +21,19 @@ export default class Artist extends Component {
         }
 
         if (data.length) {
-            // Better not to show environment if no data available.
-            rowsTpl = data.map(function(item, index) {
-                return <div className='row' key={'artist_row_' + index}>
-                    <Row artist={item} typeFilter={typeFilter}/>
-                </div>
-            })
+            const rows = data.map((item, index) => {
+                return <Row
+                    artist={item}
+                    typeFilter={typeFilter}
+                    key={'artist_row_' + index}
+                    diff={
+                        this.props.diff ?
+                            this.props.diff.find(x => x.name.toLowerCase() === item.name.toLowerCase()) :
+                            null
+                    }
+                />
+            });
+            rowsTpl = <div className='row'>{rows}</div>;
         } else {
             rowsTpl = <p className='text-center'>Add your first artist.</p>;
         }

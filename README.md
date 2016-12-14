@@ -74,7 +74,6 @@ File/Directory | Absolute path on the server
 * Subscriptions for users.
 * MusicDiff frontend: 
   * exclude the same artists,
-  * highlight rows, click on artist
   * Delete artist.
   * Show album records.
 * AOP for logs, cache, websocker, etc.

@@ -8,7 +8,10 @@ const initialState = {
             album: {label: 'Album', checked: false},
             ep: {label: 'EP', checked: false},
             single: {label: 'Single', checked: false},
-        }
+        },
+        diff: {
+            diff: {label: 'Show Only Diff', checked: false},
+        },
     }
 };
 

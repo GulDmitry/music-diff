@@ -1,5 +1,6 @@
 import {
     ARTIST_REPLACE,
+    ARTIST_MERGE,
 } from '../constants/Artist'
 import {
     GLOBAL_ALERT_ALERT,
@@ -36,7 +37,7 @@ export function generateDiff() {
         }));
         ajaxPromise.then((response) => {
             dispatch({
-                type: ARTIST_REPLACE,
+                type: ARTIST_MERGE,
                 payload: {
                     data: JSON.parse(response),
                 }

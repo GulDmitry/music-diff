@@ -7,6 +7,7 @@ export default class Row extends Component {
             albums: PropTypes.array.isRequired,
         }).isRequired,
         typeFilter: PropTypes.string.isRequired,
+        diff: PropTypes.object,
     };
 
     toggleVisibility(e) {
@@ -22,17 +23,24 @@ export default class Row extends Component {
 
     render() {
         const artist = this.props.artist;
-        let template;
-
-        template = artist.albums.map(function(album, index) {
-            return <Tr key={'album_row_' + index}>
+        const trTpl = function(album, diff = false, className = null) {
+            return <Tr className={className} key={'_' + Math.random().toString(36).substr(2, 9)}>
                 <Td column='Name' data={album.name}>
                     <b>{album.name}</b>
                 </Td>
-                <Td column='Release Date' data={album.releaseDate}>{album.releaseDate}</Td>
-                <Td column='Type' data={album.types}>{album.types}</Td>
+                <Td column='Release Date' data={album.releaseDate}/>
+                <Td column='Type' value={(diff === true ? 'diff,' : '') + album.types}>{album.types}</Td>
             </Tr>
+        };
+        const rows = artist.albums.map(function(album) {
+            return trTpl(album);
         });
+
+        if (this.props.diff && this.props.diff.albums.length) {
+            this.props.diff.albums.forEach(function(album) {
+                rows.push(trTpl(album, true, 'success'));
+            });
+        }
 
         return <div>
             <div ref='test' className='row'>
@@ -54,19 +62,34 @@ export default class Row extends Component {
                         {
                             column: 'Type',
                             filterFunction: function(contents, filter) {
-                                const data = contents.split(',');
-                                const result = data.filter(function(n) {
-                                    return filter.split(',').indexOf(n) > -1;
-                                });
+                                const columnData = contents.split(',');
+                                const filterData = filter.split(',');
+                                const diffFilterIndex = filterData.indexOf('diff');
 
+                                // TODO. Refactoring.
+                                if (diffFilterIndex !== -1) {
+                                    if (columnData.indexOf('diff') === -1) {
+                                        return false;
+                                    }
+                                    filterData.splice(diffFilterIndex, 1);
+                                }
+                                console.log(columnData, filterData);
+
+                                if (!filterData.length || !columnData.length) {
+                                    return true;
+                                }
+
+                                const result = columnData.filter(function(n) {
+                                    return filterData.indexOf(n) > -1;
+                                });
                                 return result.length;
                             }
-                        }
+                        },
                     ]}
                     filterBy={this.props.typeFilter}
                     hideFilterInput
                 >
-                    {template}
+                    {rows}
                 </Table>
             </div>
         </div>

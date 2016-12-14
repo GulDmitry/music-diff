@@ -19,6 +19,7 @@ export default class ImportExport extends Component {
             this.props.actions.importCollection(JSON.parse(contents));
         };
         reader.readAsText(file);
+        e.target.value = '';
     }
 
     render() {
