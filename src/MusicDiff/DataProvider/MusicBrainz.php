@@ -9,7 +9,6 @@ use MusicDiff\Entity\Album;
 use MusicDiff\Entity\Artist;
 use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\CollectionInterface;
-use MusicDiff\Exception\NotFoundException;
 
 class MusicBrainz implements DataProviderInterface
 {
@@ -31,16 +30,16 @@ class MusicBrainz implements DataProviderInterface
      * Make a collection albums for the artist.
      * @inheritdoc
      */
-    public function findByArtist(string $artist): CollectionInterface
+    public function findByArtist(string $artistName): ?CollectionInterface
     {
         $collection = new Collection();
-        $artists = $this->client->search(new ArtistFilter(['artist' => $artist]), 1);
+        $artists = $this->client->search(new ArtistFilter(['artist' => $artistName]), 1);
 
         /** @var MusicBrainzArtist $current */
         $current = $artists[0];
 
         if (!$current || $current->getScore() < 95) {
-            throw new NotFoundException("Artist `{$artist}`` is not found.");
+            return null;
         }
         /**
          * @var string $country

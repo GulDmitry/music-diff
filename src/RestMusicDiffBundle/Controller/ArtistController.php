@@ -13,6 +13,7 @@ use MusicDiff\Helper\DiffCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints\Length;
 
 /**
@@ -46,8 +47,9 @@ class ArtistController extends FOSRestController
 
         $restoredCollection = $this->restoreCollection($initCollection);
 
-        // TODO: If no artist found.
-//        throw new HttpException(400, "New comment is not valid.");
+        if ($initCollection->getStorage()->serialize() === $restoredCollection->getStorage()->serialize()) {
+            throw new HttpException(400, "Artist ${name} is not found.");
+        }
 
         $arrayCollection = (new ArrayConverter())->fromCollection($restoredCollection);
 
@@ -81,16 +83,11 @@ class ArtistController extends FOSRestController
      * @param CollectionInterface $initColl
      * @return CollectionInterface
      */
-    private function restoreCollection(CollectionInterface $initColl): CollectionInterface
+    private function restoreCollection(CollectionInterface $initColl): ?CollectionInterface
     {
         $musicDiff = $this->get('music_diff');
         $musicDiff->setInitCollection($initColl);
 
-        // TODO: update metadata every * days.
-        $restoredCollection = $musicDiff->restoreCollection();
-
-        (new Doctrine($this->getDoctrine()))->saveCollectionToDB($restoredCollection);
-
-        return $restoredCollection;
+        return $musicDiff->restoreCollection();
     }
 }

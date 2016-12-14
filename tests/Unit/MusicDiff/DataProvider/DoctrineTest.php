@@ -3,11 +3,15 @@ namespace Tests\Unit\MusicDiff\DataProvider;
 
 use AppBundle\Entity\Album;
 use AppBundle\Entity\Artist;
+use AppBundle\Entity\ArtistFetch;
+use AppBundle\Repository\AlbumRepository;
+use AppBundle\Repository\ArtistFetchRepository;
 use AppBundle\Repository\ArtistRepository;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use MusicDiff\Collection\Collection;
+use MusicDiff\DataProvider\AbstractProvider;
 use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist as MBArtist;
 use MusicDiff\Entity\Album as MBAlbum;
@@ -45,7 +49,7 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \MusicDiff\Exception\NotFoundException
+     * No collection in case of invalid artist.
      */
     public function testNoArtistInDB()
     {
@@ -60,7 +64,9 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
         $doctrine = $this->getDoctrineMock($repo);
 
         $dataProvider = new Doctrine($doctrine);
-        $dataProvider->findByArtist('');
+        $collection = $dataProvider->findByArtist('');
+
+        $this->assertNull($collection);
     }
 
     /**
@@ -113,6 +119,68 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Fetch artist in the next provider if last fetch date is greater then {seconds}.
+     * @covers Doctrine::findByArtist()
+     */
+    public function testArtistInvalidation()
+    {
+        $artist = new Artist('test');
+
+        $date = new \DateTime('now - 2 seconds');
+
+        $artistRepo = $this->getMockBuilder(ArtistRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $artistRepo->expects($this->any())
+            ->method('findArtistByName')
+            ->willReturn($artist);
+
+        $artistFetchRepo = $this->getMockBuilder(ArtistFetchRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $artistFetchRepo->expects($this->any())
+            ->method('findOneBy')
+            ->willReturn(new ArtistFetch($artist, $date));
+
+        $doctrine = $this->getMockBuilder(Registry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $manager = $this->getMockBuilder(EntityManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $manager->expects($this->any())
+            ->method('getRepository')
+            ->willReturnMap([
+                ['AppBundle:Artist', $artistRepo],
+                ['AppBundle:ArtistFetch', $artistFetchRepo]
+            ]);
+
+        $manager->expects($this->once())->method('flush');
+
+        $doctrine->expects($this->any())
+            ->method('getManager')
+            ->willReturn($manager);
+
+        $dataProviderAbstractMock = $this->getMockForAbstractClass(AbstractProvider::class);
+        $dataProviderAbstractMock->expects($this->once())
+            ->method('findByArtist')
+            ->with('test')
+            ->willReturn(new Collection());
+
+        $dataProvider1 = new Doctrine($doctrine, 1);
+        $dataProvider1->setNext($dataProviderAbstractMock);
+        $dataProvider1->findByArtist('test');
+
+        $dataProvider2 = new Doctrine($doctrine, 3);
+        $dataProvider2->setNext($dataProviderAbstractMock);
+        $dataProvider2->findByArtist('test');
+    }
+
+    /**
      * Convert collection to DB entities.
      * @covers Doctrine::saveCollectionToDB()
      */
@@ -131,12 +199,20 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
         $artist->expects($this->any())->method('getBeginDate')->willReturn($date);
         $artist->expects($this->any())->method('getAlbums')->willReturn([$album, $album2]);
 
-        $repo = $this->getMockBuilder(ArtistRepository::class)
+        $artistRepo = $this->getMockBuilder(ArtistRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repo->expects($this->any())
+        $artistRepo->expects($this->any())
             ->method('findArtistByName')
+            ->willReturn(null);
+
+        $albumRepo = $this->getMockBuilder(AlbumRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $albumRepo->expects($this->any())
+            ->method('findAlbumByName')
             ->willReturn(null);
 
         $doctrine = $this->getMockBuilder(Registry::class)
@@ -149,18 +225,18 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
         $manager->expects($this->any())
             ->method('getRepository')
-            ->willReturn($repo);
+            ->willReturnMap([
+                ['AppBundle:Artist', $artistRepo],
+                ['AppBundle:Album', $albumRepo]
+            ]);
 
-        $manager->expects($this->exactly(3))
+        // 1 artist, 2 albums, 1 fetch time.
+        $manager->expects($this->exactly(4))
             ->method('persist')
             ->withConsecutive($album, $album2, $artist);
 
         $manager->expects($this->once())
             ->method('flush');
-
-        $doctrine->expects($this->any())
-            ->method('getRepository')
-            ->willReturn($repo);
 
         $doctrine->expects($this->any())
             ->method('getManager')
@@ -176,7 +252,11 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
         $album->setLength(6);
         $collection->addAlbum($artist, $album);
 
+        $dataProviderMock = $this->getMockForAbstractClass(AbstractProvider::class);
+        $dataProviderMock->expects($this->once())->method('findByArtist')->with('test')->willReturn($collection);
+
         $dataProvider = new Doctrine($doctrine);
-        $dataProvider->saveCollectionToDB($collection);
+        $dataProvider->setNext($dataProviderMock);
+        $dataProvider->findByArtist('test');
     }
 }

@@ -8,8 +8,8 @@ interface DataProviderInterface
 {
     /**
      * Find artist and albums by artist name.
-     * @param string $artist
-     * @return CollectionInterface
+     * @param string $artistName
+     * @return CollectionInterface|null
      */
-    public function findByArtist(string $artist): CollectionInterface;
+    public function findByArtist(string $artistName): ?CollectionInterface;
 }

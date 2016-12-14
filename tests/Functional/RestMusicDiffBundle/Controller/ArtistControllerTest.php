@@ -59,15 +59,15 @@ class ArtistControllerTest extends WebTestCase
     }
 
     /**
-     *
+     * Get Artist and albums.
      */
-    public function testGetArtistAlbumsAction()
+    public function testGetArtistByNameAction()
     {
         $client = static::createClient();
 
         $client->request(
             'GET',
-            "api/artists/{$this->artist->getName()}/albums",
+            "api/artists/{$this->artist->getName()}",
             [],
             [],
             [
@@ -76,14 +76,11 @@ class ArtistControllerTest extends WebTestCase
             ]
         );
 
-        $body = json_decode($client->getResponse()->getContent());
+        $body = json_decode($client->getResponse()->getContent())[0];
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals($this->artist->getId(), $body->id);
         $this->assertEquals($this->artist->getName(), $body->name);
-        $this->assertEquals($this->albums[0]->getId(), $body->albums[0]->id);
         $this->assertEquals($this->albums[0]->getName(), $body->albums[0]->name);
-        $this->assertEquals($this->albums[1]->getId(), $body->albums[1]->id);
         $this->assertEquals($this->albums[1]->getName(), $body->albums[1]->name);
     }
 }

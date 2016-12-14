@@ -74,13 +74,12 @@ File/Directory | Absolute path on the server
 * MusicDiff frontend: 
   * exclude the same artists,
   * highlight rows, click on artist
-  * calculate difference
-* Table 'last_fetch' for artists.
+  * Delete artist.
 * AOP for logs, cache, websocker, etc.
 * Move collection from SplObjectStorage to array. Add method hasAlbum()...
 * Subscriptions for users.
 * Schedule band request, sent result back via websocket.
-* Tutorial in the 'Main jumbotron' container, can be disabled.
+* Tutorial.
 * Admin Area.
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
@@ -89,4 +88,3 @@ File/Directory | Absolute path on the server
 * DB indices.
 * Acceptance tests with behat.
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)
-* async\await and Promise.all() to get diff via multiply calls [link](https://habrahabr.ru/post/282477/)

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Album;
 use AppBundle\Entity\Artist;
+use AppBundle\Entity\ArtistFetch;
 use AppBundle\Entity\ArtistGenre;
 use AppBundle\Entity\Record;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
@@ -87,6 +88,9 @@ class DefaultController extends Controller
         $em->persist($album);
         $em->persist($album2);
         $em->persist($artist);
+
+        $lastFetch = new ArtistFetch($artist, new \DateTime('now'));
+        $em->persist($lastFetch);
 
         $em->flush();
 

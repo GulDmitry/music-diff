@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ArtistUpdateRepository")
- * @ORM\Table(name="artist_update")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArtistFetchRepository")
+ * @ORM\Table(name="artist_fetch")
  */
-class ArtistUpdate
+class ArtistFetch
 {
     const NUM_ITEMS = 10;
 
@@ -24,7 +24,7 @@ class ArtistUpdate
      * @ORM\Column(type="datetime", nullable=FALSE)
      * @Assert\DateTime()
      */
-    private $lastUpdate;
+    private $lastFetch;
 
     /**
      * @ORM\ManyToOne(targetEntity="Artist")
@@ -34,12 +34,12 @@ class ArtistUpdate
 
     /**
      * ArtistUpdate constructor.
-     * @param \DateTime $lastUpdate
      * @param Artist $artist
+     * @param \DateTime $lastFetch
      */
-    public function __construct(\DateTime $lastUpdate, Artist $artist)
+    public function __construct(Artist $artist, \DateTime $lastFetch)
     {
-        $this->lastUpdate = $lastUpdate;
+        $this->lastFetch = $lastFetch;
         $this->artist = $artist;
     }
 
@@ -56,9 +56,9 @@ class ArtistUpdate
      * Get lastUpdate.
      * @return \DateTime
      */
-    public function getLastUpdate()
+    public function getLastFetch()
     {
-        return $this->lastUpdate;
+        return $this->lastFetch;
     }
 
     /**

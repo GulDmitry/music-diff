@@ -36,10 +36,16 @@ export function handleSearch(payload) {
             const response = jqXHR.responseJSON;
 
             if (response.error && response.error.code) {
+                let error;
+                if (response.error.code === 500) {
+                    error = 'Internal server error';
+                } else {
+                    error = `Artist "${payload}" is not found.`;
+                }
                 dispatch({
                     type: GLOBAL_ALERT_ALERT,
                     payload: {
-                        error: `Artist "${payload}" is not found.`,
+                        error: error,
                     }
                 });
             }

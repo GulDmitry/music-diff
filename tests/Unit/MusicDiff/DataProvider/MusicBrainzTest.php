@@ -34,7 +34,6 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Match artist with score 95+
-     * @expectedException \MusicDiff\Exception\NotFoundException
      */
     public function testScope()
     {
@@ -46,7 +45,8 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
 
         $this->musicBrainzClient->expects($this->any())->method('search')->willReturn([$mbArtist]);
 
-        $this->dataProvider->findByArtist('artist');
+        $collection = $this->dataProvider->findByArtist('artist');
+        $this->assertNull($collection);
     }
 
     /**
