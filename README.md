@@ -71,14 +71,15 @@ File/Directory | Absolute path on the server
   * Local
   * Google
   * Social Networks
+* Subscriptions for users.
 * MusicDiff frontend: 
   * exclude the same artists,
   * highlight rows, click on artist
   * Delete artist.
+  * Show album records.
 * AOP for logs, cache, websocker, etc.
 * Move collection from SplObjectStorage to array. Add method hasAlbum()...
-* Subscriptions for users.
-* Schedule band request, sent result back via websocket.
+* Schedule band request, send results back via websocket.
 * Tutorial.
 * Admin Area.
 * Move from `JMS Serializer` to `symfony/serializer`.

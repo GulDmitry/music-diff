@@ -47,7 +47,7 @@ class ArtistController extends FOSRestController
 
         $restoredCollection = $this->restoreCollection($initCollection);
 
-        if ($initCollection->getStorage()->serialize() === $restoredCollection->getStorage()->serialize()) {
+        if ($restoredCollection === null) {
             throw new HttpException(400, "Artist ${name} is not found.");
         }
 

@@ -56,6 +56,9 @@ class Album implements EntityInterface
      */
     public function setTypes(array $types)
     {
+        array_walk($types, function (&$val) {
+            $val = strtolower($val);
+        });
         $this->types = $types;
     }
 

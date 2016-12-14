@@ -29,7 +29,7 @@ class Doctrine extends AbstractProvider
      * @param Registry $registry Doctrine.
      * @param int $expirationDate Seconds. How long record in DB stays actual.
      */
-    public function __construct(Registry $registry, int $expirationDate = 72 * 60 * 60)
+    public function __construct(Registry $registry, int $expirationDate = 24 * 60 * 60)
     {
         $this->registry = $registry;
         $this->expirationDate = $expirationDate;

@@ -41,7 +41,7 @@ class MusicDiff
      * Restore the init collection by filling its missed parts.
      * @return CollectionInterface|null
      */
-    public function restoreCollection(): CollectionInterface
+    public function restoreCollection(): ?CollectionInterface
     {
         if ($this->initCollection === null) {
             throw new InvalidArgumentException('Initial collection should not be empty.');
@@ -58,9 +58,6 @@ class MusicDiff
             $restoredCollection = $restoredCollection->merge($collection);
         }
 
-        if ($restoredCollection === null) {
-            throw new RuntimeException('Could not restore the collection');
-        }
         return $restoredCollection;
     }
 }
