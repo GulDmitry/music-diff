@@ -40,10 +40,15 @@ Music Difference Application
 
 ### Debugging
 `xdebug.remote_autostart=on`
+
 `xdebug.remote_enable=on`
+
 `xdebug.remote_handler=dbgp`
+
 `xdebug.remote_mode=req`
+
 `xdebug.remote_port=9000`
+
 `xdebug.remote_connect_back=on` if set the xdebug.remote_host is ignored.
 #### Web
 * PHPStorm -> Settings -> Languages & Frameworks -> PHP -> Servers
