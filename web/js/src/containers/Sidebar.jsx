@@ -19,7 +19,7 @@ class Sidebar extends Component {
     render() {
         const {filterForm} = this.props;
 
-        return <div className='row col-md-3'>
+        return <div>
             <h3>Import\Export</h3>
             <ImportExport actions={this.props.importExportActions}/>
             <h3>Filter</h3>

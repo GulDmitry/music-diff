@@ -25,53 +25,57 @@ export function handleSearch(payload) {
                 'X-Accept-Version': 'v1'
             }
         }));
-        ajaxPromise.then((response) => {
-            dispatch({
-                type: ARTIST_ADD,
-                payload: {
-                    data: response,
-                }
-            });
-        }, (jqXHR) => {
-            const response = jqXHR.responseJSON;
-
-            if (response.error && response.error.code) {
-                let error;
-                if (response.error.code === 500) {
-                    error = 'Internal server error';
-                } else {
-                    error = `Artist "${payload}" is not found.`;
-                }
+        ajaxPromise
+            .then((response) => {
                 dispatch({
-                    type: GLOBAL_ALERT_ALERT,
+                    type: ARTIST_ADD,
                     payload: {
-                        error: error,
+                        data: response,
                     }
                 });
-            }
-            if (response.form && response.form.children) {
+            })
+            .catch((jqXHR) => {
+                const response = jqXHR.responseJSON;
+
+                if (response.error && response.error.code) {
+                    let error;
+                    if (response.error.code === 500) {
+                        error = 'Internal server error';
+                    } else {
+                        error = `Artist "${payload}" is not found.`;
+                    }
+                    dispatch({
+                        type: GLOBAL_ALERT_ALERT,
+                        payload: {
+                            error: error,
+                        }
+                    });
+                }
+                if (response.form && response.form.children) {
+                    dispatch({
+                        type: SEARCH_FORM_ERRORS,
+                        payload: {
+                            errors: response.form.children,
+                        }
+                    });
+                }
+                // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
+            });
+        ajaxPromise
+            .then(() => {
+                dispatch({type: SEARCH_FORM_RENDER});
+
+                // Update Artist according to the filter form.
+                applyFilter(state().filterForm.filter.albums)(dispatch);
+            })
+            .catch(() => {
                 dispatch({
-                    type: SEARCH_FORM_ERRORS,
+                    type: ARTIST_LOADING,
                     payload: {
-                        errors: response.form.children,
+                        loading: false,
                     }
                 });
-            }
-            // in case of chain like then({}).then{} the `return new Promise(() => reject());` is required
-        });
-        ajaxPromise.then(() => {
-            dispatch({type: SEARCH_FORM_RENDER});
-
-            // Update Artist according to the filter form.
-            applyFilter(state().filterForm.filter.albums)(dispatch);
-        }, () => {
-            dispatch({
-                type: ARTIST_LOADING,
-                payload: {
-                    loading: false,
-                }
             });
-        });
     }
 }
 

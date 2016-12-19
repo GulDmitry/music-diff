@@ -1,0 +1,33 @@
+default:
+    suites:
+        default:
+            paths:
+                - %paths.base%/features/Features/App
+            contexts:
+                - Features\Bootstrap\AppContext:
+        api:
+            paths:
+                - %paths.base%/features/Features/Api
+            contexts:
+                - Features\Bootstrap\FeatureContext:
+                    doctrine: '@doctrine'
+                - Features\Bootstrap\ArtistSetupContext:
+                    doctrine: '@doctrine'
+                - Features\Bootstrap\ApiContext:
+
+    extensions:
+        Behat\WebApiExtension: ~
+        Behat\Symfony2Extension:
+            kernel:
+                env: "test"
+                debug: "true"
+        Behat\MinkExtension:
+            base_url: http://localhost:8080/
+            sessions:
+                default:
+                    symfony2: ~
+
+#suiteAPI:
+#    context:
+#    extensions:
+#        Behat\WebApiExtension: ~

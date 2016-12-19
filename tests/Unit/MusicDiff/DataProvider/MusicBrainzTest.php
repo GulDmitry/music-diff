@@ -114,7 +114,7 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([
             'albumTitle1',
             '2001-05-10',
-            ['albumType1', 'stype11', 'stype21']
+            ['albumtype1', 'stype11', 'stype21']
         ], [
             $actualAlbum1->getName(),
             $actualAlbum1->getReleaseDate(),
@@ -123,7 +123,7 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([
             'albumTitle2',
             '2002-05-10',
-            ['albumType2', 'stype12', 'stype22']
+            ['albumtype2', 'stype12', 'stype22']
         ], [
             $actualAlbum2->getName(),
             $actualAlbum2->getReleaseDate(),

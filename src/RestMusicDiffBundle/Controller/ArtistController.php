@@ -7,7 +7,6 @@ use FOS\RestBundle\Controller\FOSRestController;
 use MusicDiff\Collection\Collection;
 use MusicDiff\Collection\CollectionInterface;
 use MusicDiff\Collection\Converter\ArrayConverter;
-use MusicDiff\DataProvider\Doctrine;
 use MusicDiff\Entity\Artist;
 use MusicDiff\Helper\DiffCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -81,7 +80,7 @@ class ArtistController extends FOSRestController
     /**
      * Restore the collection.
      * @param CollectionInterface $initColl
-     * @return CollectionInterface
+     * @return CollectionInterface|null
      */
     private function restoreCollection(CollectionInterface $initColl): ?CollectionInterface
     {

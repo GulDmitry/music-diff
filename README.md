@@ -18,6 +18,8 @@ Music Difference Application
 * Go to [http://localhost:8080](http://localhost:8080)
 * PhpMyAdmin [http://localhost:8090](http://localhost:8090)
 
+> **Note**: Instead `docker exec md-php php ...` the entry point `bin\php` can be used.
+
 ### Webpack
 * `./node_modules/.bin/webpack ` for building once for development.
 * `ENV='prod' ./node_modules/.bin/webpack -p` for building once for production (minification).
@@ -32,8 +34,10 @@ Music Difference Application
   * `docker exec md-php php vendor/bin/phpunit --testsuite Unit`
 * Functional
   * `docker exec md-php php vendor/bin/phpunit --testsuite Functional`
-* All
+* All PhpUnit
   * `docker exec md-php php vendor/bin/phpunit`
+* Behat
+  * `bin/php vendor/bin/behat`
 
 ### REST
 * Versioning via header `X-Accept-Version:v1`
@@ -81,7 +85,7 @@ File/Directory | Absolute path on the server
   * exclude the same artists,
   * Delete artist.
   * Show album records.
-* AOP for logs, cache, websocker, etc.
+* AOP for logs, [cache](http://go.aopphp.com/blog/2014/10/19/caching-like-a-pro/), websocker, etc.
 * Move collection from SplObjectStorage to array. Add method hasAlbum()...
 * Schedule band request, send results back via websocket.
 * Tutorial.
@@ -91,5 +95,5 @@ File/Directory | Absolute path on the server
 * Auth as a microservice (GO time!).
 * Docker prod config.
 * DB indices.
-* Acceptance tests with behat.
+* Acceptance (Selenium, phantomJS) tests with behat.
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)

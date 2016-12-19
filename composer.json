@@ -14,12 +14,13 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Tests\\": "tests/",
+      "Features\\": "features/"
     }
   },
   "require": {
     "php": ">=7.1",
-    "symfony/symfony": "3.1.*",
+    "symfony/symfony": "^3.2",
     "doctrine/orm": "^2.5",
     "doctrine/doctrine-bundle": "^1.6",
     "doctrine/doctrine-cache-bundle": "^1.2",
@@ -39,7 +40,16 @@
   "require-dev": {
     "phpunit/phpunit": "^5.0",
     "sensio/generator-bundle": "^3.0",
-    "symfony/phpunit-bridge": "^3.0"
+    "symfony/phpunit-bridge": "^3.0",
+    "phpspec/phpspec": "^3.2",
+    "behat/behat": "^3.2",
+    "behat/mink": "^1.7",
+    "behat/mink-extension": "^2.2",
+    "behat/mink-selenium2-driver": "^1.3",
+    "behat/mink-goutte-driver": "^1.2",
+    "behat/symfony2-extension": "^2.1",
+    "behat/web-api-extension": "~1.0@dev",
+    "beberlei/assert": "^2.6"
   },
   "repositories": [
     {
