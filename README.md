@@ -9,7 +9,7 @@ Music Difference Application
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
-* `sudo chmod -R 777 var/cache var/logs vendor`
+* `sudo chmod -R 777 var/cache var/logs`
 * `docker-compose up -d`
 * `docker exec md-php php composer.phar install`
 * `npm install` or `npm install --production`
@@ -36,7 +36,8 @@ Music Difference Application
   * `docker exec md-php php vendor/bin/phpunit --testsuite Functional`
 * All PhpUnit
   * `docker exec md-php php vendor/bin/phpunit`
-* Behat
+* Behat (API context uses the `prod` environment)
+  * `bin/php bin/console cache:clear --env=prod`
   * `bin/php vendor/bin/behat`
 
 ### REST
@@ -85,7 +86,6 @@ File/Directory | Absolute path on the server
   * exclude the same artists,
   * Delete artist.
   * Show album records.
-* AOP for logs, [cache](http://go.aopphp.com/blog/2014/10/19/caching-like-a-pro/), websocker, etc.
 * Move collection from SplObjectStorage to array. Add method hasAlbum()...
 * Schedule band request, send results back via websocket.
 * Tutorial.

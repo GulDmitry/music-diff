@@ -17,6 +17,7 @@ services:
     music_brainz.http_adapter:
         class: MusicBrainz\HttpAdapters\GuzzleSixAdapter
         arguments: ['@http_client']
+        public: false
 
     music_brainz.client:
         class: MusicBrainz\MusicBrainz
@@ -27,13 +28,28 @@ services:
     music_diff.data_provider.muzic_brainz:
         class: MusicDiff\DataProvider\MusicBrainz
         arguments: ['@music_brainz.client']
+        public: false
 
     music_diff.data_provider.doctrine:
         class: MusicDiff\DataProvider\Doctrine
         arguments: ['@doctrine']
         calls:
             - [setNext, ['@music_diff.data_provider.muzic_brainz']]
+        public: false
 
     music_diff:
         class: MusicDiff\MusicDiff
         arguments: ['@music_diff.data_provider.doctrine']
+
+# Aspects
+    aspect.logging:
+        class: AppBundle\Aspect\LoggingAspect
+        arguments: ["@logger"]
+        tags:
+            - { name: goaop.aspect }
+
+    aspect.caching:
+        class: AppBundle\Aspect\CachingAspect
+        arguments: ["@doctrine_cache.default_provider", "@logger"]
+        tags:
+            - { name: goaop.aspect }

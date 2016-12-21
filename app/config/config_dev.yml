@@ -44,4 +44,8 @@ jms_serializer:
 
 doctrine_cache:
     aliases:
+        doctrine_cache.default_provider: array_cache
         doctrine_cache.default_query_cache: array_cache
+
+go_aop:
+    cache_warmer: false
