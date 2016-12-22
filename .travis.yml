@@ -1,0 +1,45 @@
+notifications:
+  email: false
+
+language: php
+php:
+  - '7.1'
+
+branches:
+  only:
+    - master
+
+sudo: true
+
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - node_modules
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.8.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - wget https://getcomposer.org/composer.phar
+
+before_script:
+  - docker-compose -f docker-compose.yml up -d
+  - bin/php composer.phar install
+  - npm install --production
+  - ENV='prod' ./node_modules/.bin/webpack -p
+  - bin/php bin/console doctrine:database:create -e=test --if-not-exists
+  - bin/php bin/console doctrine:schema:create -e=test
+  - sudo chmod -R 777 var/
+  - "phantomjs --webdriver=4444 > /dev/null &"
+
+script:
+  - bin/php vendor/bin/phpunit tests/Unit
+  - bin/php vendor/bin/phpunit tests/Functional
+  - bin/php vendor/bin/behat

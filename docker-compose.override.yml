@@ -1,0 +1,34 @@
+# With override:
+# docker-compose up
+# Base only:
+# docker-compose -f docker-compose.yml up -d
+version: '2'
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: md-pma
+    ports:
+      - "8090:80"
+    environment:
+      PMA_ARBITRARY: 0
+      PMA_HOST: 172.16.238.10
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      base_net:
+
+  phantomjs:
+    image: wernight/phantomjs:2.1
+    container_name: md-phantom
+    ports:
+      - "4444:4444"
+#   docker run -d -p 4444:4444 wernight/phantomjs phantomjs --webdriver=4444
+    entrypoint: phantomjs
+    command: "--webdriver=4444"
+    depends_on:
+      - php
+    networks:
+      base_net:
+        ipv4_address: 172.16.238.5

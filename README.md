@@ -1,6 +1,8 @@
 Music Difference Application
 ============================
 
+[![Build Status](https://travis-ci.org/GulDmitry/music-diff.svg?branch=master)](https://travis-ci.org/GulDmitry/music-diff)
+
 ## Inside
 * [Symfony Standard Application](https://github.com/symfony/symfony-standard/) 3.1
 * [docker-compose](https://docs.docker.com/compose/) >= 1.6.1
@@ -11,7 +13,7 @@ Music Difference Application
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
-* `sudo chmod -R 777 var/cache var/logs`
+* `sudo chmod -R 777 var/cache var/logs var/sessions`
 * `docker-compose up -d`
 * `docker exec md-php php composer.phar install`
 * `npm install` or `npm install --production`
@@ -95,7 +97,6 @@ File/Directory | Absolute path on the server
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
 * Auth as a microservice (GO time!).
-* Docker prod config.
 * DB indices.
 * Travis
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)
