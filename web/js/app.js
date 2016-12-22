@@ -15,6 +15,8 @@ import musicDiffStore from './src/store/musicDiffStore'
 // The same store to affect the component from another container.
 const store = musicDiffStore();
 
+window.getAjaxConnections = function () {return $.active};
+
 $(document).ready(function() {
     render(
         <Provider store={store}>

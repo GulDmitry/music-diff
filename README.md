@@ -6,6 +6,8 @@ Music Difference Application
 * [docker-compose](https://docs.docker.com/compose/) >= 1.6.1
 * [webpack](http://webpack.github.io/)
 * [bootstrap](http://getbootstrap.com/) 3
+* Redux + React
+* Behat (PhantomJS)
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
@@ -95,5 +97,5 @@ File/Directory | Absolute path on the server
 * Auth as a microservice (GO time!).
 * Docker prod config.
 * DB indices.
-* Acceptance (Selenium, phantomJS) tests with behat.
+* Travis
 * [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)

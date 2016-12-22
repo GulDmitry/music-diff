@@ -14,6 +14,15 @@ default:
                 - Features\Bootstrap\ArtistSetupContext:
                     doctrine: '@doctrine'
                 - Features\Bootstrap\ApiContext:
+        acceptance:
+            paths:
+                - %paths.base%/features/Features/Acceptance
+            contexts:
+                - Features\Bootstrap\FeatureContext:
+                    doctrine: '@doctrine'
+                - Features\Bootstrap\ArtistSetupContext:
+                    doctrine: '@doctrine'
+                - Features\Bootstrap\AcceptanceContext:
 
     extensions:
         Behat\WebApiExtension: ~
@@ -22,12 +31,10 @@ default:
                 env: "test"
                 debug: "true"
         Behat\MinkExtension:
-            base_url: http://localhost:8080/
+            base_url: http://172.16.238.4/
             sessions:
                 default:
                     symfony2: ~
-
-#suiteAPI:
-#    context:
-#    extensions:
-#        Behat\WebApiExtension: ~
+                javascript:
+                    selenium2:
+                        browser: phantomjs
