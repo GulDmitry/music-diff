@@ -71,7 +71,6 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Find releases by artist name.
-     * @covers Doctrine::findByArtist()
      */
     public function testFindByArtist()
     {
@@ -120,7 +119,6 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Fetch artist in the next provider if last fetch date is greater then {seconds}.
-     * @covers Doctrine::findByArtist()
      */
     public function testArtistInvalidation()
     {
@@ -182,7 +180,6 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Convert collection to DB entities.
-     * @covers Doctrine::saveCollectionToDB()
      */
     public function testSaveCollectionToDB()
     {

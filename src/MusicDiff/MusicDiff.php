@@ -6,7 +6,6 @@ use MusicDiff\Collection\CollectionInterface;
 use MusicDiff\DataProvider\DataProviderInterface;
 use MusicDiff\Entity\Artist;
 use MusicDiff\Exception\InvalidArgumentException;
-use MusicDiff\Exception\RuntimeException;
 
 class MusicDiff
 {

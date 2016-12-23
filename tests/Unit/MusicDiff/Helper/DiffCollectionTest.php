@@ -24,7 +24,6 @@ class DiffCollectionTest extends \PHPUnit_Framework_TestCase
     /**
      * New collection should contain missed in the first collection elements.
      * New artists should not be added.
-     * @covers DiffCollection::calculateDiff()
      */
     public function testCollectionDifference()
     {

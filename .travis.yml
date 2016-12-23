@@ -40,6 +40,10 @@ before_script:
   - "phantomjs --webdriver=4444 > /dev/null &"
 
 script:
-  - bin/php vendor/bin/phpunit tests/Unit
-  - bin/php vendor/bin/phpunit tests/Functional
+  - bin/php vendor/bin/phpunit tests/Unit --coverage-php=/tmp/unit_coverage.cov
+  - bin/php vendor/bin/phpunit tests/Functional --coverage-php=/tmp/func_coverage.cov
   - bin/php vendor/bin/behat
+  - wget https://phar.phpunit.de/phpcov.phar && php phpcov.phar merge /tmp --clover coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

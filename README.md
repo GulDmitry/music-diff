@@ -2,6 +2,7 @@ Music Difference Application
 ============================
 
 [![Build Status](https://travis-ci.org/GulDmitry/music-diff.svg?branch=master)](https://travis-ci.org/GulDmitry/music-diff)
+[![codecov](https://codecov.io/gh/GulDmitry/music-diff/branch/master/graph/badge.svg)](https://codecov.io/gh/GulDmitry/music-diff)
 
 ## Inside
 * [Symfony Standard Application](https://github.com/symfony/symfony-standard/) 3.1
@@ -98,5 +99,3 @@ File/Directory | Absolute path on the server
 * Search music in file system (only Chrome?).
 * Auth as a microservice (GO time!).
 * DB indices.
-* Travis
-* [Code coverage badge](https://habrahabr.ru/company/simpleweek/blog/316210/)

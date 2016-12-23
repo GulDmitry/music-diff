@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR/../" # force phpstorm to sit in project's root dir when running tests
-docker run -i --rm -v "${PWD}":"${PWD}" -v /private/:/private/ -v /tmp/:/tmp/ -w ${PWD} --net=host --sig-proxy=true --pid=host musicdiff_php php -d include_path=vendor/phpunit/phpunit "$@"
+docker run -i --rm -v "${PWD}":"${PWD}" -v /private/:/private/ -v /tmp/:/tmp/ -v $HOME:$HOME -w ${PWD} --net=host --sig-proxy=true --pid=host musicdiff_php php -d include_path=vendor/phpunit/phpunit "$@"

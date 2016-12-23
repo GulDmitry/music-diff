@@ -22,8 +22,6 @@ class MusicDiffTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that collection can be restored via data provider and difference can be received.
-     * @covers MusicDiff::setInitCollection()
-     * @covers MusicDiff::restoreCollection()
      */
     public function testBasicWorkflow()
     {

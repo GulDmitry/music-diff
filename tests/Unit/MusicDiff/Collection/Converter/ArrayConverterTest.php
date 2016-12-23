@@ -29,8 +29,6 @@ class ArrayConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Collection can be represented as array and restored.
-     * @covers ArrayConverter::fromCollection()
-     * @covers ArrayConverter::toCollection()
      */
     public function testConverting()
     {

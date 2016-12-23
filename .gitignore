@@ -16,6 +16,8 @@
 /web/bundles/
 
 composer.phar
+phpcov.phar
+coverage.xml
 /node_modules/
 /web/assets/*
 !web/assets/.gitkeep

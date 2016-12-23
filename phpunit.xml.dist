@@ -34,4 +34,8 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <!--<logging>-->
+        <!--<log type="coverage-php" target="/tmp/coverage_phpunit.cov"/>-->
+    <!--</logging>-->
 </phpunit>

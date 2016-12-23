@@ -51,7 +51,6 @@ class MusicBrainzTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Find releases by artist name.
-     * @covers MusicBrainz::findByArtist()
      */
     public function testFindByArtist()
     {

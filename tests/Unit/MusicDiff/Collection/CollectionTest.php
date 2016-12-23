@@ -22,9 +22,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test that collection creates specific objects which can be received later.
-     * @covers Collection::addArtist()
-     * @covers Collection::addAlbum()
-     * @covers Collection::getStorage()
      */
     public function testAlbumArtistAdding()
     {
@@ -58,9 +55,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Merge collections. Passed collection replaces the original.
-     * @covers Collection::addArtist()
-     * @covers Collection::addAlbum()
-     * @covers Collection::merge()
      */
     public function testMergeSubData()
     {
@@ -114,8 +108,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Merge should works event if collection is empty.
-     * @covers Collection::addArtist()
-     * @covers Collection::merge()
      */
     public function testMergeEmptyCollection()
     {
@@ -131,9 +123,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Merge should works event if album collection is empty.
-     * @covers Collection::addArtist()
-     * @covers Collection::addAlbum()
-     * @covers Collection::merge()
      */
     public function testMergeEmptyAlbums()
     {
