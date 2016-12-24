@@ -23,18 +23,33 @@ security:
         main:
             pattern: ^/
             form_login:
+                remember_me: true
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
+                login_path: /login
+                check_path: /login_check
+            oauth:
+                resource_owners:
+                    google: "/login/check-google"
+                    facebook: "/login/check-facebook"
+                login_path: /
+                failure_path: /
+                oauth_user_provider:
+                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: my_user_provider
 
             logout:       true
             anonymous:    true
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        login:
+            pattern:  ^/login$
+            security: false
+            remember_me:
+                secret: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

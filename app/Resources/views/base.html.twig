@@ -42,19 +42,38 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             {% block header_navigation_links %}
+                                {% if app.user %}
+                                    <li>
+                                        <p class="navbar-text">Signed in as {{ app.user.realName }}
+                                            {#<a href="#" class="navbar-link"></a>#}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <p class="navbar-text">Log in</p>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+                                            <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+                                            <i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     {#sonata_admin_redirect#}
                                     <a href="{{ path('index') }}">
                                         <i class="fa fa-home" aria-hidden="true"></i> Admin
                                     </a>
                                 </li>
-                                {% if app.user %}
-                                    <li>
-                                        <a href="{{ path('security_logout') }}">
-                                            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-                                        </a>
-                                    </li>
-                                {% endif %}
                             {% endblock %}
                         </ul>
                     </div><!--/.navbar-collapse -->

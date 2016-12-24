@@ -38,7 +38,8 @@
     "mikealmond/musicbrainz": "^1.1",
     "nikic/php-parser": "^3.0",
     "goaop/parser-reflection": "~1.1@dev",
-    "goaop/goaop-symfony-bundle": "^2.0"
+    "goaop/goaop-symfony-bundle": "^2.0",
+    "hwi/oauth-bundle": "^0.5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.0",

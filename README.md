@@ -11,6 +11,7 @@ Music Difference Application
 * [bootstrap](http://getbootstrap.com/) 3
 * Redux + React
 * Behat (PhantomJS)
+* [Go! AOP](https://github.com/goaop/framework)
 
 ## Installation
 * `wget https://getcomposer.org/composer.phar`
@@ -82,11 +83,7 @@ File/Directory | Absolute path on the server
   * Default configuration file: `phpunit.xml.dist`
 
 #### TODO
-* Auth (FOSUser)
-  * Local
-  * Google
-  * Social Networks
-* Subscriptions for users.
+* Collections and subscriptions for users.
 * MusicDiff frontend: 
   * exclude the same artists,
   * Delete artist.

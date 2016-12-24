@@ -23,6 +23,8 @@ class DefaultController extends Controller
 //        $this->testDbScheme();
 //        $rawQueryResult = $this->testRawQueryCache();
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
         ]);

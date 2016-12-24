@@ -25,3 +25,9 @@ parameters:
     music_brainz.application: MusicDiff
     music_brainz.version: 0.1
     music_brainz.contact_info: example@example.com
+
+    # OAuth
+    google_client_id: googleClientId
+    google_client_secret: googleSecret
+    facebook_client_id: facebookClientId
+    facebook_client_secret: facebookSecret

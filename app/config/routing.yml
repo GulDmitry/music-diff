@@ -13,3 +13,21 @@ fos_user:
 rest_music_diff:
     resource: "@RestMusicDiffBundle/Resources/config/routing.yml"
     prefix:   /api
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
+google_login:
+    path: /login/check-google
+
+facebook_login:
+    path: /login/check-facebook
