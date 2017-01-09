@@ -8,7 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArtistRepository")
- * @ORM\Table(name="artist")
+ * The index has no sense.
+ * @ORM\Table(name="artist", indexes={@ORM\Index(name="search_name_idx", columns={"name"})})
  *
  * Defines the properties of the Post entity to represent the blog posts.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class

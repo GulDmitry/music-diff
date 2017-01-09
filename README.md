@@ -95,4 +95,4 @@ File/Directory | Absolute path on the server
 * Move from `JMS Serializer` to `symfony/serializer`.
 * Search music in file system (only Chrome?).
 * Auth as a microservice (GO time!).
-* DB indices.
+* [Normalizing](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) Redux state, and one more [article](https://habrahabr.ru/post/318268/) or JSON API.

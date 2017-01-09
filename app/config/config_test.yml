@@ -14,3 +14,8 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+go_aop:
+    options:
+        # To disable AOP
+        include_paths: ["%kernel.root_dir%/"]
