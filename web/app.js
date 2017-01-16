@@ -8,6 +8,10 @@ import Vue from 'vue'
 import App from './components/App'
 import store from './store'
 
+// Application structure: https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
+// Vue: https://ru.vuejs.org/v2/guide/index.html
+// Vues: https://vuex.vuejs.org/ru/forms.html
+
 $(document).ready(function() {
     new Vue({
         el: '#todo-app',
