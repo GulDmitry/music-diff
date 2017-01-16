@@ -2,7 +2,68 @@
 
 {% block main %}
     {{ parent() }}
-    <div id="music-diff" class="container"></div>
+    <div id="music-diff" class="container">
+        <span v-once>This will never change: ${ message }</span>
+        <p></p>
+        <!-- full syntax -->
+        {#<a v-bind:href="url"></a>#}
+        {#<a :href="url"></a>#}
+        <!-- shorthand -->
+        <!-- full syntax -->
+        {#<a v-on:click="doSomething"></a>#}
+        {#<a @click="doSomething"></a>#}
+        <!-- shorthand -->
+        ${ "test" | capitalize }
+        ${ message + "1" }
+        ${ ok ? 'YES' : 'NO' }
+        ${ message.split('').reverse().join('') }
+        <span v-bind:title="message">
+            Hover your mouse over me for a few seconds to see my dynamically bound title! Message!
+        </span>
+        <p v-if="seen">Now you see me</p>
+        <ol>
+            <li v-for="todo in todos">
+                ${ todo.text }
+            </li>
+        </ol>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+        <input v-model="message">
+
+        <p></p>
+        Component
+        <ol>
+            <!-- Now we provide each todo-item with the todo object    -->
+            <!-- it's representing, so that its content can be dynamic -->
+            <todo-item1 v-for="item in groceryList" v-bind:todo="item"></todo-item1>
+        </ol>
+
+        <p></p>
+        <div id="example">
+            <p>Original message: "${ message }"</p>
+            <p>Computed reversed message: "${ reversedMessage }"</p>
+            <p>Cached now: "${ now }"</p>
+        </div>
+    </div>
+
+    <p></p>
+    <div id="todo-list-example">
+        <input
+                v-model="newTodoText"
+                v-on:keyup.enter="addNewTodo"
+                placeholder="Add a todo"
+        >
+        <ul>
+            <li
+                    is="todo-item"
+                    v-for="(todo, index) in todos"
+                    v-bind:title="todo"
+                    v-on:remove="todos.splice(index, 1)"
+            ></li>
+        </ul>
+        <my-component></my-component>
+        <app></app>
+    </div>
+    <div id="todo-app" class="container"></div>
 {% endblock %}
 {% block sidebar %}
     {{ parent() }}

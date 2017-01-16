@@ -28,9 +28,9 @@ Music Difference Application
 
 ### Webpack
 * `./node_modules/.bin/webpack ` for building once for development.
-* `ENV='prod' ./node_modules/.bin/webpack -p` for building once for production (minification).
+* `NODE_ENV='production' ./node_modules/.bin/webpack -p` for building once for production (minification).
 * `./node_modules/.bin/webpack --watch` for continuous incremental build in development (fast!).
-* `ENV='prod' ./node_modules/.bin/webpack -d` to include source maps.
+* `NODE_ENV='production' ./node_modules/.bin/webpack -d` to include source maps.
 * `./node_modules/.bin/webpack-dev-server --progress --colors --port 8081 --content-base=web/` for dev environment.
 
 ### Tests

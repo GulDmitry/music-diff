@@ -1,12 +1,10 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-process.env.ENV = process.env.ENV || 'dev';
-
 const config = {
     entry: [
         'babel-polyfill',
-        './web/js/app.js'
+        './web/app.js'
     ],
     output: {
         filename: 'bundle.js',
@@ -19,13 +17,17 @@ const config = {
                 test: /\.js$/,
                 loaders: ['eslint'],
                 exclude: /node_modules/,
-            }
+            },
+            // {
+            //     test: /\.vue$/,
+            //     loader: 'eslint',
+            //     exclude: /node_modules/
+            // },
         ],
         loaders: [
             {
-                test: /\.jsx$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
+                test: /\.vue$/,
+                loader: 'vue'
             },
             {
                 test: /\.js$/,
@@ -69,8 +71,7 @@ const config = {
     plugins: [
         new ExtractTextPlugin('bundle.css'),
         new webpack.DefinePlugin({
-            // 'true' for boolean, '"string"' for string.
-            'ENV': `"${process.env.ENV}"`
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
@@ -78,14 +79,15 @@ const config = {
         }),
         new webpack.NoErrorsPlugin()
     ],
-    externals: {
-        // "react": "React" causes error "React is not defined".
-        'React': 'React'
-    },
-    resolve: {extensions: ['', '.js', '.jsx']}
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.common.js'
+        },
+        extensions: ['', '.js', '.vue']
+    }
 };
 
-if (process.env.ENV === 'prod') {
+if (process.env.ENV_NODE === 'production') {
     config.devtool = 'source-map';
     config.plugins.push(
         new webpack.optimize.UglifyJsPlugin({

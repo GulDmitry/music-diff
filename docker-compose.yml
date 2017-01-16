@@ -4,6 +4,7 @@ services:
       build: ./app/docker/nginx
       container_name: md-web
       ports:
+        - "80:80"
         - "8080:80"
         - "8043:443"
       volumes:
